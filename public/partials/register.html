@@ -1,0 +1,62 @@
+<div class="modal fade" id="registerModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+<script type="text/ng-template" id="register.html">
+        <div class="modal-content text-center">
+            <div id="contact-form">
+                <div class="contact-form-title text-center" style="margin-bottom: 30px !important;">
+                    <h2>Sign up</h2>
+                </div>
+
+                <div  ng-if="vm.error" class="alert alert-danger" id="response">{{vm.error}}</div>
+                <form class="contact-form clearfix" ng-submit="vm.register()" novalidate="novalidate">
+                    <div class="row">
+                        <div class="col-md-8 col-md-offset-2">
+                            <button class="btn btn-block btn-lg btn-info"><span class="fa fa-facebook"></span> &nbsp;Sign up with Facebook</button>
+                            <button class="btn btn-block btn-lg btn-danger"><span class="fa fa-google"></span>&nbsp;Sign up with Google</button>
+                            <br> <p class="text-center">Or</p>
+                            <!-- col-md-4 -->
+                            <p class="input-block">
+                                <label class="required" for="contact_email"><i class="fa fa-envelope"></i></label>
+                                <input type="text" class="valid" name="email" id="contact_email" value="" placeholder="Email*"  ng-model="vm.email">
+                            </p>
+
+                            <p class="input-block">
+                                <label class="required" for="contact_password"><i class="fa fa-envelope"></i></label>
+                                <input type="password" class="valid" name="password" id="contact_password" value="" placeholder="Password*"  ng-model="vm.password">
+                            </p>
+
+                            <p class="input-block">
+                                <label class="required" for="contact_password"><i class="fa fa-envelope"></i></label>
+                                <input type="password" class="valid" name="confirmpassword" id="contact_confirmpassword" value="" placeholder="Confirm Password*"  ng-model="vm.confirmpassword">
+                            </p>
+
+                            <p class="input-block">
+                                <label class="required" for="contact_name"><i class="fa fa-user"></i></label>
+                                <input type="text" class="valid" name="username" id="contact_name" value="" placeholder="Name*"  ng-model="vm.username">
+                            </p>
+                            <!-- col-md-4 -->
+
+                            <p class="input-block">
+                                <label class="required" for="phone"><i class="fa fa-phone"></i></label>
+                                <input type="text" id="phone" value="" class="valid" name="url" placeholder="Phone"  ng-model="vm.phone">
+                            </p>
+                            <br>
+                            <p class="contact-button clearfix">
+                                <input type="submit" ng-disabled="vm.loading" class="input-submit" id="submit-contact" value="Register">
+                            </p>
+                            <br>
+                        </div>
+                        <!-- col-md-12 -->
+                    </div>
+                    <!-- row -->
+                </form>
+            </div>
+            <div class="modal-footer" style="text-align:center !important">
+                <button class=" btn btn-primary pointer" data-dismiss="modal" data-name="register-modal" data-toggle="modal" data-target="#signinModal">Sign in</button>
+                <span> &nbsp; &nbsp;Already have an account?</span>
+            </div>
+            <br>
+        </div><!-- .modal-content -->
+</script>
+    </div><!-- .modal-dialog -->
+</div><!-- .modal.fade -->

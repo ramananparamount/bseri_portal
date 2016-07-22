@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <meta charset="utf-8">
+      <title>BSERI</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="description" content="">
+      <meta name="author" content="">
+      <link rel="stylesheet" href="css/bootstrap.min.css" media="all" />
+      <link rel="stylesheet" href="css/cust-bootstrap-modal-carousel.css" media="all" />
+      <link rel="stylesheet" href="css/font-awesome.min.css" media="all" />
+      <link rel="stylesheet" href="css/superfish.css" media="all" />
+      <link rel="stylesheet" href="css/owl.carousel.css" media="all" />
+      <link rel="stylesheet" href="css/owl.theme.css" media="all" />
+      <link rel="stylesheet" href="css/jquery.navgoco.css"/>
+      <link rel="stylesheet" href="css/style.css">
+      <link rel="stylesheet" href="css/responsive.css"/>
+      <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,300italic,400italic,600,600italic,700italic,700' rel='stylesheet' type='text/css'>
+      <link href='http://fonts.googleapis.com/css?family=Raleway:400,300,500,600,700,800' rel='stylesheet' type='text/css'>
+      <!-- <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css"> -->
+
+      <script src="js/modernizr.custom.js"></script>
+      <script src="js/jquery-1.11.1.min.js"></script>
+      <script src="js/bootstrap.min.js"></script>
+      <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
+      <script src="js/custom.js" charset="utf-8"></script>
+
+<!--         <script src="js/app-angular.js"></script>
+        <script src="js/authController.js"></script>
+ -->
+
+
+      <!-- Le fav and touch icons -->
+      <link rel="shortcut icon" href="img/favicon.ico">
+      <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+      <link rel="apple-touch-icon" sizes="72x72" href="img/apple-touch-icon-72x72.png">
+      <link rel="apple-touch-icon" sizes="114x114" href="img/apple-touch-icon-114x114.png">
+
+
+  </head>
+
+  <body class="kopa-home-1"> <!-- ng-app="myApp"> -->
+
+    <% include header %> 
+    <% include register %>
+    <% include signin %>
+ 
+
+    <!-- Modal -->
+    <div class="modal fade" id="readmoremodal" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">ISO 14001</h4>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+
+              <div class="col-md-10 col-md-offset-1">
+                <div class="col-md-6">
+                  <img class="modal-img" src="">
+                </div>
+                <div class="col-md-6">
+                  <p class="modal-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sed sodales lacus. Quisque sodales vitae lorem vel tempor. Sed rutrum nisi in orci ultricies, tincidunt fermentum metus varius. Cras metus elit, porta nec eleifend non</p>
+                </div>
+              </div>
+              <div>
+                <div class="col-md-8">
+                  <br>
+                  <p class="text-center">Date:  <strong class="modal-date"> 2011-01-01 </strong> </p>
+                  <p class="text-center">Price:  <strong class="modal-price"> Rs.1000 </strong> </p>
+                </div>
+
+                <div class="col-md-12">
+                  <br>
+                  <br>
+                  <a href="single-courses.php" class="modal-link btn btn-lg  btn-block btn-info">Take this Course</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div data-dismiss="modal" class="modal fade modal-fullscreen force-fullscreen" id="videoModal" tabindex="-1" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content text-center">
+          <div class="modal-body">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <video class="modal-video" autoplay width="100%" controls >
+              <source src='' type='video/mp4'>
+            </video>
+        
+<!--              <iframe class="modal-video" width="100%" height="100%" src="//www.youtube.com/embed/mwuPTI8AT7M?rel=0" frameborder="0"></iframe>
+ -->                   
+          </div><!-- .modal-body -->
+        </div><!-- .modal-content -->
+      </div><!-- .modal-dialog -->
+    </div><!-- .modal.fade -->
+
+
+
+    <div id="main-content">
+        <section class="container-fluid">
+            <div class="home-slider home-slider-1">
+                <div class="owl-carousel owl-carousel-1">
+
+                    <% for (var i=0; i < contents.length; i++) { %>
+
+                        <div class="item">
+
+                            <article class="entry-item">
+                              <div class="entry-thumbin w3-animate-opacity">
+                                  <a href='<%= contents[i].detailslink %>'>
+                                    <img src='<%= contents[i].image %>' alt="">
+                                  </a>
+<!--                                   
+                                  <% if(contents[i].media === "image") { %>
+                                    <a href='<%= contents[i].detailslink %>'>
+                                      <img src='<%= contents[i].image %>' alt="">
+                                    </a>
+                                  <% } %>
+                                   <% if(contents[i].media === "video") { %>
+                                      <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#videoModal">
+                                        Play Video
+                                        </button>
+
+                                     <video class="zorder" preload="none" width="100%" autoPlay controls="controls" >
+                                      <source src='<%= contents[i].image %>' type='<%= contents[i].type %>'>
+                                    </video>
+                                   <% } %>
+-->
+                                  <div class="mask"></div>
+                              </div>
+                              <div class="entry-content">
+                                  <div class="container">
+                                      <div class="row">
+                                          <div class="col-md-6 col-sm-6 col-xs-12 left-col">
+                                            <h2><a href="#"><%= contents[i].title %></a></h2>
+                                            <% if(contents[i].media === "video") { %>
+                                              <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#videoModal" data-title="test" data-link=<%= contents[i].image %>>Play Video</button>
+                                            <% } %>
+                                          </div>
+                                          <div class="col-md-6 col-sm-6 col-xs-12 right-col">
+                                              <div class="row ">
+                                                  <div class="col-md-8 col-md-offset-4 panel" style=" background: rgba(0,0,0,0.6)!important;">
+                                                    <p>Lorem ipsum dolor sit amet.<p>
+                                                  <button class="btn btn-info"> Know more</button>
+                                              </div>
+                                              </div>
+                                              <div class="row">
+                                                  <div class="col-md-8 col-md-offset-4 panel"  style=" background: rgba(0,0,0,0.6)!important;">
+                                                    <p>Lorem ipsum dolor sit amet.<p>
+                                                   <button class="btn btn-info">Know more</button>
+                                              </div></div>
+                                              <div class="row">
+                                                  <div class="col-md-8 col-md-offset-4 panel"  style=" background: rgba(0,0,0,0.6)!important;">
+                                                    <p>Lorem ipsum dolor sit amet,<p>
+                                                   <button class="btn btn-info">Know more</button>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </article>
+                          <!-- entry-item -->
+
+                      </div>
+                      <!-- item -->
+                    <% } %>
+
+
+                  </div>
+                  <!-- owl-carousel-1 -->
+
+                  <div class="loading">
+                      <i class="fa fa-refresh fa-spin"></i>
+                  </div>
+                  <!-- loading -->
+
+              </div>
+              <!-- home-slider -->
+
+          </section>
+          <!-- container-fluid -->
+
+    <section class="kopa-area kopa-area-0 kopa-area-light hide">
+
+      <div class="container">
+
+        <div class="row">
+
+          <div class="col-md-12">
+
+            <div class="widget kopa-event-widget">
+
+              <div class="widget-title widget-title-s1 clearfix">
+                <h4>Upcoming Course-ISO 9001</h4>
+            <div class="meta-box clearfix">
+              <span class="entry-time pull-left clearfix">
+                <i class="fa fa-clock-o pull-left"></i>
+                <span class="pull-left">12:00 PM</span>
+              </span>
+              <span class="entry-date pull-left clearfix">
+                <i class="fa fa-calendar-o pull-left"></i>
+                <span class="pull-left">26 March, 2016</span>
+              </span>
+            </div>
+                <i class="widget-title-icon fa fa-calendar"></i>
+              </div>
+              <!-- widget-title-s1 -->
+
+              <div class="widget-content">
+
+                <div class="row">
+
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+
+                    <div class="entry-content">
+
+                      <h2 class="entry-title"><a href="#">Start Your ISO Courses</a></h2>
+
+                      <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis.</p>
+
+                    </div>
+
+                  </div>
+                  <!-- col-md-6 -->
+
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+
+                    <ul class="kopa-countdown-2">
+                    </ul>
+
+                    <div class="text-right">
+                      <a href="#" class="kopa-button pink-button medium-button">See all courses</a>
+                    </div>
+
+                  </div>
+                  <!-- col-md-6 -->
+
+                </div>
+                <!-- row -->
+
+              </div>
+              <!-- widget-content -->
+
+            </div>
+            <!-- widget -->
+
+          </div>
+          <!-- col-md-12 -->
+
+        </div>
+        <!-- row -->
+
+      </div>
+      <!-- container -->
+
+    </section>
+    <!-- kopa-area-light -->
+
+    <section class="kopa-area-5 kopa-area-parallax">
+
+      <div class="span-bg"></div>
+
+      <div class="container">
+
+      <div class="row">
+
+        <div class="col-md-12 col-sm-12 col-xs-12">
+
+          <div class="widget kopa-article-list-3-widget">
+
+            <div class="widget-title widget-title-s4">
+              Upcoming Events <br> & Courses
+            </div>
+            <!-- widget-title-s4 -->
+
+            <div class="widget-content">
+
+              <ul class="clearfix">
+
+              <%for(i = 0; i < courses.length ; i++ ) {%>
+                <li>
+                  <article class="entry-item">
+                    <div class="entry-thumbnail">
+                      <a data-toggle="modal" data-target="#readmoremodal" data-title="<%= courses[i].title %>" data-imgsrc="<%= courses[i].smallimage %>" data-desc="<%= courses[i].briefdesc %>" data-link="<%= courses[i].detailslink %>" data-date="<%= courses[i].StartDate %>" data-price="<%= courses[i].price %>" data-duration="<%= courses[i].duration %>"><img src="<%= courses[i].smallimage %>" alt=""></a>
+                    </div>
+                    <div class="entry-content">
+
+                      <header class="clearfix">
+                        <span class="entry-time pull-left"><%= courses[i].StartDate %></span>
+                        <span class="entry-meta pull-left">&nbsp;/&nbsp;</span>
+                        <span class="entry-author pull-left"><a href="#"><%= courses[i].host %></a></span>
+                      </header>
+
+                      <h5 class="entry-title"><a href="#"><%= courses[i].title %></a></h5>
+
+                      <p><%= courses[i].briefdesc %></p>
+
+                      <a class="more-link clearfix" data-toggle="modal" data-target="#readmoremodal" data-title="<%= courses[i].title %>" data-imgsrc="<%= courses[i].smallimage %>" data-desc="<%= courses[i].briefdesc %>" data-link="training/<%= courses[i].detailslink %>" data-date="<%= courses[i].StartDate %>" data-price="<%= courses[i].price %>" data-duration="<%= courses[i].duration %>" ><span class="pull-left">Read more</span><i class="fa fa-angle-right pull-left"></i></a>
+
+                  </div>
+                </article>
+              </li>
+            <% } %>
+
+            </ul>
+
+            </div>
+            <!-- widget-content -->
+
+          </div>
+          <!-- kopa-rounded-thumb-widget -->
+
+        </div>
+        <!-- col-md-8 -->
+
+        <div class="col-md-4 col-sm-4 col-xs-12 hide">
+
+          <div class="widget kopa-featured-teacher-widget">
+
+            <div class="widget-title widget-title-s7 clearfix">
+            <i class="fa fa-quote-left pull-left"></i>
+            <h4 class="pull-left">Message From BSERI</h4>
+          </div>
+
+            <div class="widget-content">
+              <article class="entry-item">
+                <div class="entry-thumbnail">
+                  <a href="#"><a href="#"><img src="http://placehold.it/290x208" alt=""></a></a>
+                </div>
+                <div class="entry-content">
+                  <p>Originally a web designer, Kai launched the first Offscreen magazine in early 2012 after wanting to create something more physical and lasting. Offscreen explores the lives of people in our industry outside of work, and is still a one-man operation, now on it’s tenth issue. Kai also publishes.</p>
+                  <footer>
+                    <h6><a href="#">Govind</a></h6>
+                    <span>CREATOR of BSERI</span>
+                  </footer>
+                </div>
+              </article>
+            </div>
+            <!-- widget -->
+
+          </div>
+          <!-- widget -->
+
+        </div>
+        <!-- col-md-4 -->
+
+      </div>
+      <!-- row -->
+
+      </div>
+      <!-- container -->
+
+    </section>
+    <!-- kopa-area-parallax -->
+
+
+    <% if ( testimonials.length > 0 ){%>
+      <section class="kopa-area kopa-area-7">
+
+        <div class="container">
+
+          <div class="row">
+
+            <div class="col-md-12 col-sm-12 col-xs-12">
+
+              <div class="widget kopa-testimonial-list-1-widget">
+
+                <div class="widget-title widget-title-s5 text-center">
+                    <span></span>
+                    <h2>What our customers say</h2>
+                    <p>See our features courses or see all courses to see all.</p>
+                </div>
+
+
+                <section class="container-fluid">
+                  <div class="home-slider home-slider-1 ">
+                    <div class="widget-content">
+                      <div class="row">
+                        <div class="owl-carousel owl-carousel-1" >
+                            <div class="col-md-12 ">
+                              <% for (i = 0; i < testimonials.length; i ++) { %>
+                                <div class="col-md-4 col-sm-4 col-xs-12">
+                                  <article class="testimonial-item">
+                                    <div class="testimonial-detail">
+                                      <strong>testimonials[i].</strong>
+                                      testimonials[i].quote
+                                    </div>
+                                    <footer class="clearfix">
+                                      <img src="http://placehold.it/46x46" alt="">
+                                      <div class="customer-detail">
+                                        <h5><a href="#">testimonials[i].personName</a></h5>
+                                        <em>testimonials[i].personCompany</em>
+                                      </div>
+                                    </footer>
+                                  </article>
+                                </div>
+                              <% } %>
+                            </div>
+                        </div>
+                      </div>
+                      <!-- row -->
+                    </div>
+                    <!-- widget -->
+                  </div>
+                  <!-- col-md-12 -->
+                </section>
+
+              </div>
+              <!-- widget -->
+            </div>
+            <!-- col-md-12 -->
+          </div>
+          <!-- row -->
+        </div>
+        <!-- container -->
+      </section>
+      <!-- kopa-area-7 -->
+    <% } %>
+    <% include footer.html %>
+
+  </body>
+
+</html>

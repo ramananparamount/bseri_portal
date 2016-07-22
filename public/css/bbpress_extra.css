@@ -1,0 +1,111 @@
+/**
+*
+* BBPress Default Widget
+*
+* -----------------------------------------------------------------------------
+*/
+
+.widget_display_forums .widget-title,
+.widget_display_topics .widget-title,
+.widget_display_replies .widget-title,
+.widget_display_stats .widget-title,
+.widget_display_views .widget-title,
+.widget_display_search .widget-title {
+  margin-bottom: 28px; 
+}
+
+.widget_display_forums ul,
+.widget_display_topics ul,
+.widget_display_replies ul,
+.widget_display_stats ul,
+.widget_display_views ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.widget_display_forums li:first-child,
+.widget_display_views li:first-child,
+.widget_display_replies li:first-child,
+.widget_display_topics li:first-child,
+.widget_display_stats dt:first-child,
+.widget_display_stats dd:nth-child(2) {
+  padding-top: 0;
+}
+
+.widget_display_forums li,
+.widget_display_views li,
+.widget_display_replies li,
+.widget_display_topics li {
+  padding: 12px 0;
+  border-bottom: 1px solid #e0e0e0; 
+}
+
+.widget_display_replies .bbp-author-avatar img {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
+
+.widget_display_topics .bbp-author-avatar img{
+  width: 20px;
+  height: 20px;
+  margin: 0px 5px;
+}
+
+.widget_display_stats dl:after {
+  content: " ";
+  display: table;
+  clear: both;
+}
+
+.widget_display_stats dt,
+.widget_display_stats dd {
+  display: block;
+  float: left;
+  width: 80%;
+  padding: 12px 0;
+  border-bottom: 1px solid #e0e0e0; 
+  font-weight: normal;
+}
+
+.widget_display_stats dd strong {
+  font-weight: normal;
+}
+
+.widget_display_stats dt{
+  width: 90%;
+}
+
+.widget_display_stats dd {
+  width: 10%;
+  text-align: right;
+  padding-right: 10px;
+}
+
+.widget_display_topics div,
+.widget_display_replies div {
+  font-size: 11px;
+  margin: 5px 0px 0px;  
+  text-transform: uppercase;
+}
+
+#bbp-search-form {
+  position: relative;
+}
+
+#bbp-search-form #bbp-search {
+
+}
+
+#bbp-search-form #bbp_search_submit {
+  position: absolute;
+  right: 1px;
+  height: 38px;
+  top: 1px;
+  border: none;
+}
+
+#bbp-search-form #bbp_search_submit:hover {
+  color: #40b6c1;
+}
+

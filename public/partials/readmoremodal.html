@@ -1,0 +1,40 @@
+<!-- Modal -->
+<div class="modal fade">
+  <div class="modal-dialog">
+  <script type="text/ng-template" id="readmoremodal.html">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">{{modalObject.title}}</h4>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+
+            <div class="col-md-10 col-md-offset-1">
+              <div class="col-md-6">
+                <img class="modal-img" ng-src={{modalObject.smallimage}}>
+              </div>
+              <div class="col-md-6">
+                <p class="modal-desc">{{modalObject.briefdesc}}</p>
+              </div>
+            </div>
+            <div>
+              <div class="col-md-8">
+                <br>
+                <p class="text-center">Date:  <strong class="modal-date">{{modalObject.StartDate}} </strong> </p>
+                <p class="text-center">Price:  <strong class="modal-price"> {{modalObject.price}} </strong> </p>
+              </div>
+
+              <div class="col-md-12">
+                <br>
+                <br>
+                <a href="javascript:void(0)" ng-click="stateGoToDetails('trainingdetails',{courseid:modalObject.id})" class="modal-link btn btn-lg  btn-block btn-info">Take this Course</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </script>
+  </div>
+  </div>
+<!-- Modal -->

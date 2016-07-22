@@ -1,0 +1,89 @@
+<div id="kopa-page-header" ng-controller="headerCtrl">
+
+
+
+  <div id="kopa-header-top">
+
+      <div class="container">
+
+          <div class="row">
+
+              <div class="col-md-3 col-sm-3 col-xs-12">
+
+                  <div id="logo-image" class="pull-left">
+
+                      <a href="/">
+                          <img src="/img/logo.png" alt="BSERI" width="100px">
+                      </a>
+                  </div>
+
+              </div>
+              <!-- col-md-3 -->
+
+              <div class="col-md-8 col-sm-8 col-xs-12 col-md-offset-1 col-sm-offset-1">
+
+                  <nav id="top-nav" class="pull-right clearfix">
+
+                      <ul id="top-menu" class="clearfix">
+                          <li class="flip-back">
+                              <a href="/about.php"><!-- <i class="fa fa-info-circle" aria-hidden="true"> </i>--><span>About Us</span></a>
+                          </li>
+                          <li class="flip-back">
+                              <a href="/training"><!-- <i class="fa fa-list"> </i>--><span>Training programs</span></a>
+                              <ul>
+                              </ul>
+                          </li>
+                          <li class="flip-back">
+                              <a href="javascript:void(0)"><!-- <i class="fa fa-cog"> </i>--><span>Service</span></a>
+                              <ul>
+                                  <li><a href="management-system.php">Management system</a></li>
+                                  <li><a href="Questionnaire.php">Questionnaire</a></li>
+                              </ul>
+                          </li>
+
+                          <li class="flip-back">
+                                <a href="blog1.php"><!-- <i class="fa fa-rss" aria-hidden="true"> </i>--><span>Blog</span></a>
+                          </li>
+
+                          <li class="flip-back" ng-show="!Islogged">
+                              <a href="javascript:void(0)" ng-click="openLoginModal()">Login</a>                          
+                          </li>
+
+                          <li class="flip-back" ng-show="Islogged">
+                              <a href="javascript:void(0)"> <i class="fa fa-user"> </i></a>
+                              <ul>
+                                  <li><a data-name="register-modal" data-toggle="modal" data-target="">My Programs</a></li>
+                                  <li><a href="javascript:void(0)" ng-click="logout()">Logout</a></li>
+                              </ul>
+                          </li>
+
+                      </ul>
+                      <!-- top-menu -->
+
+
+                      <!--/main-menu-mobile-->
+
+
+                      <!-- drop down -->
+
+
+
+                  </nav>
+                  <!-- top-nav -->
+
+              </div>
+              <!-- col-md-6 -->
+
+          </div>
+          <!-- row -->
+
+      </div>
+      <!-- container -->
+
+  </div>
+  <!-- kopa-header-top -->
+
+
+
+
+</div>

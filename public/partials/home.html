@@ -1,0 +1,299 @@
+<ng-include src="'/partials/readmoremodal.html'"></ng-include>
+<ng-include src="'/partials/videomodal.html'"></ng-include>
+
+
+    <div id="main-content">
+        <section class="container-fluid">
+            <div class="home-slider home-slider-1">
+                <div class="owl-carousel owl-carousel-1">
+
+                        <div class="item" ng-repeat="content in contents">
+
+                            <article class="entry-item">
+                              <div class="entry-thumbin w3-animate-opacity">
+                                  <a ng-href={{content.detailslink}}>
+                                    <img ng-src={{content.image}} alt="Banner">
+                                  </a>
+                                  <div class="mask"></div>
+                              </div>
+                              <div class="entry-content">
+                                  <div class="container">
+                                      <div class="row">
+                                          <div class="col-md-6 col-sm-6 col-xs-12 left-col">
+                                            <h2><a href="#">{{content.title}}</a></h2>
+<!--                                               <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#videoModal" data-title="test" data-link={{content.video}} ng-show="IsAVideo(content)">Play Video</button>
+ -->
+                                              <button type="button" class="btn btn-primary btn-lg" ng-click="openVideoModal(content)" ng-show="IsAVideo(content)">Play Video</button>
+                                          </div>
+                                          <div class="col-md-6 col-sm-6 col-xs-12 right-col">
+                                              <div class="row ">
+                                                  <div class="col-md-8 col-md-offset-4 panel" style=" background: rgba(0,0,0,0.6)!important;">
+                                                    <p>Lorem ipsum dolor sit amet.<p>
+                                                  <button class="btn btn-info"> Know more</button>
+                                              </div>
+                                              </div>
+                                              <div class="row">
+                                                  <div class="col-md-8 col-md-offset-4 panel"  style=" background: rgba(0,0,0,0.6)!important;">
+                                                    <p>Lorem ipsum dolor sit amet.<p>
+                                                   <button class="btn btn-info">Know more</button>
+                                              </div></div>
+                                              <div class="row">
+                                                  <div class="col-md-8 col-md-offset-4 panel"  style=" background: rgba(0,0,0,0.6)!important;">
+                                                    <p>Lorem ipsum dolor sit amet,<p>
+                                                   <button class="btn btn-info">Know more</button>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </article>
+                          <!-- entry-item -->
+
+                      </div>
+                      <!-- item -->
+                  </div>
+                  <!-- owl-carousel-1 -->
+
+                  <div class="loading">
+                      <i class="fa fa-refresh fa-spin"></i>
+                  </div>
+                  <!-- loading -->
+
+              </div>
+              <!-- home-slider -->
+
+          </section>
+          <!-- container-fluid -->
+
+    <section class="kopa-area kopa-area-0 kopa-area-light hide">
+
+      <div class="container">
+
+        <div class="row">
+
+          <div class="col-md-12">
+
+            <div class="widget kopa-event-widget">
+
+              <div class="widget-title widget-title-s1 clearfix">
+                <h4>Upcoming Course-ISO 9001</h4>
+            <div class="meta-box clearfix">
+              <span class="entry-time pull-left clearfix">
+                <i class="fa fa-clock-o pull-left"></i>
+                <span class="pull-left">12:00 PM</span>
+              </span>
+              <span class="entry-date pull-left clearfix">
+                <i class="fa fa-calendar-o pull-left"></i>
+                <span class="pull-left">26 March, 2016</span>
+              </span>
+            </div>
+                <i class="widget-title-icon fa fa-calendar"></i>
+              </div>
+              <!-- widget-title-s1 -->
+
+              <div class="widget-content">
+
+                <div class="row">
+
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+
+                    <div class="entry-content">
+
+                      <h2 class="entry-title"><a href="#">Start Your ISO Courses</a></h2>
+
+                      <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis.</p>
+
+                    </div>
+
+                  </div>
+                  <!-- col-md-6 -->
+
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+
+                    <ul class="kopa-countdown-2">
+                    </ul>
+
+                    <div class="text-right">
+                      <a href="#" class="kopa-button pink-button medium-button">See all courses</a>
+                    </div>
+
+                  </div>
+                  <!-- col-md-6 -->
+
+                </div>
+                <!-- row -->
+
+              </div>
+              <!-- widget-content -->
+
+            </div>
+            <!-- widget -->
+
+          </div>
+          <!-- col-md-12 -->
+
+        </div>
+        <!-- row -->
+
+      </div>
+      <!-- container -->
+
+    </section>
+    <!-- kopa-area-light -->
+
+    <section class="kopa-area-5 kopa-area-parallax">
+
+      <div class="span-bg"></div>
+
+      <div class="container">
+
+      <div class="row">
+
+        <div class="col-md-12 col-sm-12 col-xs-12">
+
+          <div class="widget kopa-article-list-3-widget">
+
+            <div class="widget-title widget-title-s4">
+              Upcoming Events <br> & Courses
+            </div>
+            <!-- widget-title-s4 -->
+
+            <div class="widget-content">
+
+              <ul class="clearfix">
+
+                <li ng-repeat="course in courses">
+                  <article class="entry-item">
+                    <div class="entry-thumbnail">
+                      <a class="more-link clearfix" ng-click="openReadMoreModal(course)"><img ng-src={{course.smallimage}} alt={{course.title}}></a>
+                    </div>
+                    <div class="entry-content">
+
+                      <header class="clearfix">
+                        <span class="entry-time pull-left">{{course.StartDate}}</span>
+                        <span class="entry-meta pull-left">&nbsp;/&nbsp;</span>
+                        <span class="entry-author pull-left"><a href="#">{{course.host}}</a></span>
+                      </header>
+
+                      <h5 class="entry-title"><a href="#">{{course.title}}</a></h5>
+
+                      <p>{{course.briefdesc}}</p>
+
+                      <a class="more-link clearfix" ng-click="openReadMoreModal(course)"><span class="pull-left">Read more</span><i class="fa fa-angle-right"></i></a>
+
+                  </div>
+                </article>
+              </li>
+            </ul>
+
+            </div>
+            <!-- widget-content -->
+
+          </div>
+          <!-- kopa-rounded-thumb-widget -->
+
+        </div>
+        <!-- col-md-8 -->
+
+        <div class="col-md-4 col-sm-4 col-xs-12 hide">
+
+          <div class="widget kopa-featured-teacher-widget">
+
+            <div class="widget-title widget-title-s7 clearfix">
+            <i class="fa fa-quote-left pull-left"></i>
+            <h4 class="pull-left">Message From BSERI</h4>
+          </div>
+
+            <div class="widget-content">
+              <article class="entry-item">
+                <div class="entry-thumbnail">
+                  <a href="#"><a href="#"><img src="http://placehold.it/290x208" alt=""></a></a>
+                </div>
+                <div class="entry-content">
+                  <p>Originally a web designer, Kai launched the first Offscreen magazine in early 2012 after wanting to create something more physical and lasting. Offscreen explores the lives of people in our industry outside of work, and is still a one-man operation, now on it’s tenth issue. Kai also publishes.</p>
+                  <footer>
+                    <h6><a href="#">Govind</a></h6>
+                    <span>CREATOR of BSERI</span>
+                  </footer>
+                </div>
+              </article>
+            </div>
+            <!-- widget -->
+
+          </div>
+          <!-- widget -->
+
+        </div>
+        <!-- col-md-4 -->
+
+      </div>
+      <!-- row -->
+
+      </div>
+      <!-- container -->
+
+    </section>
+    <!-- kopa-area-parallax -->
+
+
+      <section class="kopa-area kopa-area-7 hide">
+
+        <div class="container">
+
+          <div class="row">
+
+            <div class="col-md-12 col-sm-12 col-xs-12">
+
+              <div class="widget kopa-testimonial-list-1-widget">
+
+                <div class="widget-title widget-title-s5 text-center">
+                    <span></span>
+                    <h2>What our customers say</h2>
+                    <p>See our features courses or see all courses to see all.</p>
+                </div>
+
+
+                <section class="container-fluid">
+                  <div class="home-slider home-slider-1 ">
+                    <div class="widget-content">
+                      <div class="row">
+                        <div class="owl-carousel owl-carousel-1" >
+                            <div class="col-md-12 ">
+                              <!-- <% for (i = 0; i < testimonials.length; i ++) { %> -->
+                                <div class="col-md-4 col-sm-4 col-xs-12" ng-repeat="testimonial in testimonials">
+                                  <article class="testimonial-item">
+                                    <div class="testimonial-detail">
+                                      <strong>{{testimonial.title}}</strong>
+                                      {{testimonial.quote}}
+                                    </div>
+                                    <footer class="clearfix">
+                                      <img src="http://placehold.it/46x46" alt="">
+                                      <div class="customer-detail">
+                                        <h5><a href="#">{{testimonial.personName}}</a></h5>
+                                        <em>{{testimonial.personCompany}}</em>
+                                      </div>
+                                    </footer>
+                                  </article>
+                                </div>
+                              <!-- <% } %> -->
+                            </div>
+                        </div>
+                      </div>
+                      <!-- row -->
+                    </div>
+                    <!-- widget -->
+                  </div>
+                  <!-- col-md-12 -->
+                </section>
+
+              </div>
+              <!-- widget -->
+            </div>
+            <!-- col-md-12 -->
+          </div>
+          <!-- row -->
+        </div>
+        <!-- container -->
+      </section>
+      <!-- kopa-area-7 -->
+    
