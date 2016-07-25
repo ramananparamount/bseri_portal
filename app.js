@@ -11,6 +11,7 @@ var config = require('./config/config'); // get our config file
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var training= require('./routes/training');
+var junction = require('./routes/junction');
 
 var app = express();
 
@@ -62,9 +63,8 @@ require('./util/passport')(passport);
 
 
 app.use('/api/home', routes);
-// app.use('/index', routes);
 app.use('/api/training', training);
-// app.use('/users', users);
+app.use('/api/junction', junction);  
 
 
 // catch 404 and forward to error handler

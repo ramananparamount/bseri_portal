@@ -1,7 +1,47 @@
 (function () {
-    var myapp = angular.module('bseriApp', ['ngAnimate','ui.router', 'ui.bootstrap', 'ngStorage']);
-    myapp.config(function($stateProvider, $urlRouterProvider, $locationProvider){
 
+    angular.module('ui.splash', ['ui.bootstrap', 'ngAnimate'])
+        .service('$splash', ['$uibModal','$rootScope', 
+          function($uibModal, $rootScope) {
+            return {
+                open: function (attrs, opts) {
+                    console.log("Within Splash");
+                    var scope = $rootScope.$new();
+                    angular.extend(scope, attrs);
+                    opts = angular.extend(opts || {}, {
+                        backdrop: false,
+                        scope: scope,
+                        templateUrl: 'splash/content.html',
+                        windowTemplateUrl: 'splash/index.html'
+                    });
+                    console.log("Within Splash2");
+
+                    return $uibModal.open(opts);
+                }
+            };
+        }
+    ])
+    .run([
+      '$templateCache',
+      function ($templateCache) {
+        $templateCache.put('splash/index.html',
+          '<section modal-render="{{$isRendered}}" class="splash" modal-in-class="splash-open" ng-style="{\'z-index\': 1000, display: \'block\'}" ng-click="close($event)">' +
+          '  <div class="splash-inner" ng-transclude></div>' +
+          '</section>'
+        );
+        $templateCache.put('splash/content.html',
+          '<div class="splash-content text-center">' +
+          '  <h1 ng-bind="title"></h1>' +
+          '  <p class="lead" ng-bind="message"></p>' +
+          '  <button class="btn btn-lg btn-outline" ng-bind="btnText || \'Ok, cool\'" ng-click="$close()"></button>' +
+          '</div>'
+        );
+      }
+    ]);
+
+
+    var myapp = angular.module('bseriApp', ['ui.splash', 'ngAnimate','ui.router', 'ui.bootstrap', 'ngStorage']);
+    myapp.config(function($stateProvider, $urlRouterProvider, $locationProvider){
 
     // For any unmatched url, send to /route1
     $urlRouterProvider.otherwise("/")
@@ -78,173 +118,82 @@
         templateUrl: "partials/training.html",
         controller: function($scope,$http,$state, $uibModal){
             $http.get('/api/training').success(function (response){
-                    console.log(response);
-                    var data = response;
-                    $scope.courses=data.courses;
-                }).error(function(err,status){
-                    console.log(err);
+                console.log(response);
+                var data = response;
+                $scope.courses=data.courses;
+            }).error(function(err,status){
+                console.log(err);
             });
             $scope.openReadMoreModal = function (course) {
                 var modalInstance = $uibModal.open({
-                  animation: true,
-                  templateUrl: 'readmoremodal.html',
-                  controller: 'ModalInstanceCtrl',
-                  resolve: {
-                    modalObject: course
-                  }
+                    animation: true,
+                    templateUrl: 'readmoremodal.html',
+                    controller: 'ModalInstanceCtrl',
+                    resolve: {
+                      modalObject: course
+                    }
                 });
             };
+        }
+    })
+    .state('junction', {
+        url: "/junction",
+        templateUrl: "partials/junction.html",
+        controller: function($scope, $http, $state, $timeout, $stateParams, $splash , $uibModal){
 
+            $scope.isCollapsed = true;
+
+            $scope.openJunctionModal = function (blurb){
+                var modalInstance = $uibModal.open({
+                  animation: true,
+                  size:'lg',
+                  templateUrl: 'junctiondetails.html',
+                  controller: 'ModalInstanceCtrl',
+                  resolve: {
+                    modalObject: blurb
+                  }
+                });
+                // $splash.open({
+                //     title: 'Hi there!',
+                //     message: "This sure is a fine modal, isn't it?"
+                // });
+            };
+
+            $http.get('/api/junction').success(function (response){
+                console.log(response);
+                $scope.categories = response.categories;
+            }).error(function(err,status){
+                console.log(err);
+            });
+
+            $scope.getCategoryBlurb = function(catID,tabIdx){
+                console.log("catID:"+catID);
+                if($scope.categories[tabIdx].isLoaded){
+                    // console.log("Already Loaded:"+tabIdx);
+                    return;
+                }
+                /* or make request for data delayed to show Loading... */
+                $timeout(function(){
+                    console.log("Getting from service catID:"+catID + ' for tabIdx = ' + tabIdx);
+                    $http.get('/api/junction/' + catID).success(function(response){
+                        // console.log(response.items);
+                        $scope.categories[tabIdx].blurbs = response.items;
+                        // console.log($scope.categories[tabIdx].blurbs[0].title);
+                        $scope.categories[tabIdx].isLoaded=true;
+                    }).error(function(err,status){
+                        console.log(err);
+                    });
+                
+                }, 100);
+
+            };
         }
     })
 
 
-
-    .state('managementsystems', {
-        url: "/managementsystems/:catId",
-        templateUrl: "partials/managementsys.html",
-        controller: function($scope,$http,$filter,$stateParams,$sce,$state){
-            $http.get("/data/systems.json").success(function (data){
-                    var details = [];
-                    details = ($filter('filter')(data,{"topic":$stateParams.catId}));
-                    $scope.details=details[0];
-                    //console.log(details[0]);
-                }).error(function(err,status){
-                    console.data(status);
-            });
-            //Rendering HTML from the json data and not simple json from json data
-            $scope.$sce=$sce;
-            $scope.HasQuiz = $stateParams.catId == "systems" ? false : true;
-            $scope.quizlink = "quiz({'catId':'" + $stateParams.catId +"'})";
-
-            var currQ=-1;
-            var TotalQrys = 0;
-            var queries = [];
-            var CorrectAnswers = 0;
-            var currAnswer = 0;
-            $scope.ShowResult = false;
-            $scope.ShowNext = true;
-            $scope.ShowProfile = false;
-            $http.get("/data/quiz.json").success(function (data){
-                    queries = ($filter('filter')(data,{"topic":$stateParams.catId}));
-                    //console.log(queries[0].questions[0]);
-                    $scope.qry = queries[0].questions[++currQ];
-                    TotalQrys = queries[0].questions.length;
-                }).error(function(err,status){
-                    console.data(status);
-            });
-            $scope.setShowResult = function (disabled){
-                disabled = true;
-            };
-            $scope.getShowResult = function (answer){
-                return (answer > 0);
-            };
-            $scope.updateAnswer = function (answer){
-                console.log("Answer = " + answer);
-                currAnswer = answer;
-            }
-            $scope.DisplayResult = function (){
-                if(currAnswer === $scope.qry.answeropt){
-                    CorrectAnswers++;
-//                    console.log("Increment correct answer " + CorrectAnswers);
-                }
-                //Hide the show result button 
-                $scope.ShowResult = false;
-                switch(CorrectAnswers){
-                    case 0:
-                        $scope.DisplayResultMessage="Still you can review the content and try again!! ";
-                        //Show the videorerun button
-                        $scope.videoRerun = true;
-                        $scope.ShowRegister = false;
-                        break;
-                    case 1:
-                    case 2:
-                        $scope.DisplayResultMessage="Your Result : " + CorrectAnswers + "/" + TotalQrys + "! Claim a 5% discount now or retake the test!";
-                        $scope.videoRerun = true;
-                        $scope.ShowRegister = true;
-                        break;
-                    case 3:
-                        $scope.DisplayResultMessage="Your Result : " + (CorrectAnswers/TotalQrys * 100) + "%! Claim a 10% discount now or retake the test!";
-                        $scope.videoRerun = true;
-                        $scope.ShowRegister = true;
-                        break;
-                    case 4:
-                    case 5:
-                        $scope.DisplayResultMessage="Congrats! Your mark : " + (CorrectAnswers/TotalQrys * 100) + "% ! Claim a 20% discount!";
-                        $scope.videoRerun = false;
-                        $scope.ShowRegister = true;
-                        break;
-
-                }
-            }
-
-            $scope.DisplayNextQ = function(){
-                if(currAnswer === $scope.qry.answeropt){
-                    CorrectAnswers++;
-//                    console.log("Increment correct answer " + CorrectAnswers);
-                }
-                $scope.qry=queries[0].questions[++currQ];
-                $scope.qry.submitAns=-1;
-                currAnswer = 0 ;
-                if(currQ === (TotalQrys - 1)) {
-                    $scope.ShowNext = false;
-                    $scope.ShowResult = true;
-                }
-            };
-
-            function QuizReset (){
-                var overlay = document.getElementById("overlay");
-                overlay.style.visibility='hidden';
-                currQ=-1;
-                $scope.ShowResult = false;
-                $scope.ShowNext = true;
-                $scope.videoRerun = false;
-                $scope.ShowRegister = false;
-                $scope.DisplayResultMessage = "";
-                $scope.qry=queries[0].questions[++currQ];
-                $scope.qry.submitAns = -1;
-            }
-
-            $scope.RetakeExam = function (){
-                QuizReset();
-                var video = document.getElementById("IDvideo");
-                video.play();
-                video.controls=true;
-            }
-
-            $scope.RegisterUser = function (e){
-                $scope.videoRerun = false;
-                if(!$scope.ShowProfile){
-                    $scope.ShowProfile = true;
-                }
-                else{
-                    $state.go("training");
-                }
-            }
-        }
-    })
     .state('gallery', {
         url: "/gallery",
         templateUrl: "partials/gallery.html"
-    })
-    .state('quiz', {
-        url: "/quiz/:catId",
-        templateUrl: "partials/quiz.html",
-        controller: function($scope,$http,$filter,$stateParams){
-            $http.get("/data/quiz.json").success(function (data){
-                        var queries = [];
-                        queries = ($filter('filter')(data,{"topic":$stateParams.catId}));
-                        $scope.qrys=queries[0].questions;
-                    }).error(function(err,status){
-                        console.data(status);
-                });
-            $scope.setShowResult = function (disabled){
-                disabled = true;
-            };
-            $scope.getShowResult = function (answer){
-                return (answer > 0);
-            };
-        }
     })
     .state('blogitem', {
         url: "/blogitem",

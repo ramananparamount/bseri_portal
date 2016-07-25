@@ -1,11 +1,9 @@
 var express = require('express');
 var passport = require('passport');
 var jwt    = require('jsonwebtoken'); // used to create, sign, and verify tokens
-// var bcrypt = require('bcryptjs');
 
 var config = require('../config/config'); // get our config file
 var UserModel = require('../models/usermodel');
-// var SALT_WORK_FACTOR = 10;
 
 // const requireAuth = passport.authenticate('jwt', { session: false });
 
@@ -92,13 +90,14 @@ router.post('/login', function (req, res){
         // check if password matches
         user.comparePassword(req.body.password, function(err, isMatch) {
           if (isMatch && !err) {
+            var payload = {id:user.id,email:user.email,name:user.name,role:(user.admin === true)?'admin':'user'};
             // Create token if the password matched and no error was thrown
-            var token = jwt.sign({id:user.id,email:user.email,name:user.name}, config.secret, {
+            var token = jwt.sign(payload, config.secret, {
                       expiresIn: '24h' // in seconds
                   });
             console.log(user);
             console.log(token);
-            res.json({ success: true, token: 'JWT ' + token});            
+            res.json({ success: true, token: 'JWT ' + token});
             // res.cookie('jwt', token);
             // res.status(200);
             // res.redirect('/');

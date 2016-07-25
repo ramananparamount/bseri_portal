@@ -1,0 +1,111 @@
+<ng-include src="'/partials/junctiondetails.html'"></ng-include>
+
+    <div id="main-content">
+
+        <header class="page-header">
+
+            <div class="mask-pattern"></div>
+
+            <div class="mask"></div>
+
+            <div class="page-header-bg page-header-bg-1"></div>
+
+            <div class="page-header-inner">
+
+                <div class="container">
+
+                    <div class="row">
+
+                        <div class="col-md-12">
+
+                            <h1 class="page-title clearfix">
+                                <span class="pull-left">Junction box</span>
+                            </h1>
+
+                        </div>
+                        <!-- col-md-12 -->
+
+                    </div>
+                    <!-- row -->
+
+                </div>
+                <!-- container -->
+
+            </div>
+            <!-- page-header-inner -->
+
+        </header>
+        <!-- page-header -->
+
+        <div itemtype="http://data-vocabulary.org/Breadcrumb" itemscope="" class="kopa-breadcrumb">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="pull-left"><span>Junction box</span></div>
+                        <div class="pull-right">
+                            <a title="Return to Home" href="junction_detail.php" itemprop="url">
+                                <span itemprop="title">Home</span>
+                            </a>
+                            <span>&nbsp;/&nbsp;</span>
+                            <span itemprop="title" class="current-page">Junction box</span>
+                        </div>
+                    </div>
+                    <!-- col-md-12 -->
+                </div>
+            </div>
+        </div>
+        <!-- kopa-breadcrumb -->
+
+        <section class="kopa-area kopa-area-31">
+
+            <div class="container">
+
+                <div class="row">
+
+                    <!-- <div class="col-md-3"> -->
+
+                        <h4>Topics</h4>
+                        <uib-tabset active="activePill"  vertical="true" type="tabs">
+                            <uib-tab ng-repeat="category in categories" heading="{{category.categoryName}}" active="category.active" disabled="category.disabled" select="getCategoryBlurb(category.categoryid,$index)" classes="nav nav-tabs" >
+                                <div class="col-md-9" style="top:-80px;">
+                                    <div class="tab-pane">
+                                        <h3>{{category.categoryName}}</h3>
+                                        <p>{{category.categoryDesc}}</p>
+                                        <!-- <div class="og-grid" id="og-grid"> -->
+                                            <div class="col-md-6 junction" ng-repeat="blurb in category.blurbs">
+<!--                                                 <a ng-click="openJunctionModal(item.detaildesc)" data-link={{item.detailslink}} ng-class="white_text" data-title={{item.title}} data-description={{item.detaildesc}}>
+
+ -->
+                                                <a href="#" ng-click="openJunctionModal(blurb)" ng-class="white_text">
+                                                    <div class="panel panel-primary">
+                                                        <div class="panel-heading">
+                                                            {{blurb.title}}
+                                                        </div>
+
+                                                        <div class="panel-body">
+                                                            {{blurb.briefdesc}}
+                                                        </div>
+                                                    </div>
+                                                </a>                 
+
+                                            </div>
+                                        <!-- </div> -->
+
+                                    </div>
+                                </div>
+                            </uib-tab>
+                        </uib-tabset>
+
+                    <!-- </div> -->
+
+                </div>
+                <!-- row -->
+
+            </div>
+            <!-- container -->
+
+        </section>
+        <!-- kopa-area-16 -->
+
+    </div>
+    <!-- main-content -->
