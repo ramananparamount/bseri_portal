@@ -1,8 +1,15 @@
 var mongoose = require('mongoose');
 var db = require('../config/config.js');
 
+// mongoose.set('debug', true);
+
+//Setting ES6 Promise as native mongoose promise is deprecated
+mongoose.Promise = Promise;  
+
 //Should not use async when calling from webpage
 mongoose.connect(db.dbconnectstr);
+
+
 
 // mongoose.createConnection(db.dbconnectstr, function (error) {
 //     if (error) {

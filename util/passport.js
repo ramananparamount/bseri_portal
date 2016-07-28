@@ -27,7 +27,7 @@ module.exports = function(passport) {
               return done(err, false);
           }
           if (user) {
-              console.log(user);
+              console.log("the user is " + user.email);
               done(null, user);
           } else {
               console.log("error in passport-jwt");

@@ -41,10 +41,10 @@
         }
 
         function Register(email, password, username, phone, callback) {
-            console.log(email);
-            console.log(password);
-            console.log(username);
-            console.log(phone);
+            // console.log(email);
+            // console.log(password);
+            // console.log(username);
+            // console.log(phone);
 
             $http.post('/api/home/register', {email:email, password: password, username: username, phone:phone })
                 .success(function (response) {

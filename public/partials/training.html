@@ -1,5 +1,5 @@
     
-    <div id="main-content">
+    <div id="main-content" class="kopa-course-list-1">
 
         <header class="page-header">
 
@@ -157,15 +157,15 @@
                                             <article class="entry-item hot-item">
                                                 <div class="entry-thumbx">
                                                     <div class="mask"></div>
-                                                    <a href="#"><img ng-src= {{course.smallimage}} alt="course image"></a>
+                                                    <a href="#"><img ng-src= {{course.course.smallimage}} alt="course image"></a>
                                                     <span class="entry-hot" ng-if="course.isImportant">Hot</span>
                                                 </div>
                                                 <div class="entry-content">
+                                                    <h6 class="entry-title"><a href="#">{{course.course.title}}</a><br><span class="hide">{{course.course.briefdesc}}</span></h6>
                                                     <div class="course-teacher" ng-if="course.isTutorAvl">
                                                         <span>Trainer</span>
                                                         : <a href="#">{{course.Trainer}}</a>
                                                     </div>
-                                                    <h6 class="entry-title"><a href="#">{{course.title}}</a><br><span class="hide">{{course.briefdesc}}</span></h6>
                                                     <br>
                                                     <a href="javascript:void(0)" ng-click="openReadMoreModal(course)" class="btn btn-primary">Read More</a>
                                                     <!-- <a href="javascript:void(0)" ng-click="stateGoToDetails('trainingdetails',{courseid:course.id})" class="btn btn-primary">Take Course</a>

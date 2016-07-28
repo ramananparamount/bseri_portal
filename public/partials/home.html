@@ -163,21 +163,23 @@
               <ul class="clearfix">
 
                 <li ng-repeat="course in courses">
-                  <article class="entry-item">
-                    <div class="entry-thumbnail">
-                      <a class="more-link clearfix" ng-click="openReadMoreModal(course)"><img ng-src={{course.smallimage}} alt={{course.title}}></a>
+                  <article class="entry-item hot-item">
+                    <div class="entry-thumbx">
+                        <a class="more-link clearfix" ng-click="openReadMoreModal(course)"><img ng-src={{course.course.smallimage}} alt={{course.course.title}}></a>
+                        <span class="entry-hot" ng-if="course.course.isImportant">Hot</span>
+
                     </div>
                     <div class="entry-content">
 
                       <header class="clearfix">
-                        <span class="entry-time pull-left">{{course.StartDate}}</span>
+                        <span class="entry-time pull-left">{{course.startdate | date : 'dd-MMM-yyyy'}}</span>
                         <span class="entry-meta pull-left">&nbsp;/&nbsp;</span>
-                        <span class="entry-author pull-left"><a href="#">{{course.host}}</a></span>
+                        <span class="entry-author pull-left"><a href="#">{{course.conductingOrg}}</a></span>
                       </header>
 
-                      <h5 class="entry-title"><a href="#">{{course.title}}</a></h5>
+                      <h5 class="entry-title"><a href="#">{{course.course.title}}</a></h5>
 
-                      <p>{{course.briefdesc}}</p>
+                      <p>{{course.course.briefdesc}}</p>
 
                       <a class="more-link clearfix" ng-click="openReadMoreModal(course)"><span class="pull-left">Read more</span><i class="fa fa-angle-right"></i></a>
 

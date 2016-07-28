@@ -90,22 +90,103 @@
                   }
                 });
             };
-
-
         }
     })
     .state('trainingdetails', {
-        url: "/training/:courseid",
+        url: "/training/:coursekeyword/:eventid",
         templateUrl: "partials/singlecourses.html",
-        controller: function($scope,$http,$stateParams,$state){
-            $http.get('/api/training/' + $stateParams.courseid)
-                .success(function (response){
-                    console.log(response);
-                    $scope.course=response;
-                })
-                .error(function(err,status){
-                    console.log(err);
-            });
+        controller: function($scope,$http,$stateParams,$state,$localStorage,$uibModal,$q){
+            console.log("Calling 1st");
+            $scope.details = $http.get('/api/training/' + $stateParams.coursekeyword + "/" + $stateParams.eventid);
+            $scope.registerinfo = $http.get('/api/training/eventIsRegistered' + "/" + $stateParams.eventid);
+
+            $q.all([$scope.details,$scope.registerinfo])
+                .then(function(values){
+                    console.log(values[0].data);
+                    console.log(values[1].data);
+                    $scope.course = values[0].data.course;
+                    if(values[1].data.isregistered){
+                        $scope.RegisterMsg = "Course Registered";
+                        $scope.TakeCourseDisabled = true;
+                        // $scope.anchorlinkRegister = "";
+                    }
+                    else
+                    {
+                        $scope.RegisterMsg = "Take Course";
+                        $scope.TakeCourseDisabled = false;
+                        // $scope.anchorlinkRegister = "javascript:void(0)";
+                    }
+                });
+
+            $scope.openLoginModal = function () {
+                var LoginmodalInstance = $uibModal.open({
+                  animation: true,
+                  templateUrl: 'signin.html',
+                  controller: 'LoginCtrl',
+                  controllerAs : 'vm'
+                });
+
+                LoginmodalInstance.result.then(function (res){
+                    if(res.success){
+                        $scope.Islogged = true;
+                        console.log("close:" + res);
+                    }
+                    else if(res.openSignup){
+                        $scope.openSignupModal();
+                    }
+                }, function (res) {
+                    console.log("dismiss:" + res);
+                });
+            };
+
+            $scope.openSignupModal = function () {
+                $scope.IsRegistered = false;
+                var SignupmodalInstance = $uibModal.open({
+                  animation: true,
+                  templateUrl: 'register.html',
+                  controller: 'RegisterCtrl',
+                  controllerAs : 'vm'
+                });
+                SignupmodalInstance.result.then(function (res){
+                    if(res.success){
+                        $scope.IsRegistered = true;
+                        console.log("Register close:" + res);
+                    }
+                }, function (res) {
+                    console.log("Register dismiss:" + res);
+                });
+            };
+            $scope.RegisterEvent = function(course){
+                if($scope.TakeCourseDisabled){
+                    console.log("Is Course disabled");
+                    return false;
+                }
+                var loading = true;
+                if($localStorage.currentUser === undefined || $localStorage.currentUser === null) {
+                    $scope.openLoginModal();
+                }
+                else{
+                    console.log(course.course.keyword + ',' + course.eventid);
+                    $http.post('/api/training/registerCourse/' + course.course.keyword + "/" + course.eventid)
+                        .success(function (response){
+                            console.log(response);
+                            if(response.success == true){
+                                console.log("into DOM manipulation");
+                                $scope.RegisterMsg = "Course Registered";
+                                $scope.TakeCourseDisabled = true;
+                                $scope.anchorlinkRegister = "";
+                            }
+                            $scope.snackbarMsg = response.message;
+                        })
+                        .error(function(err,status){
+                            console.log(err);     
+                        });
+                }
+            }
+
+            $scope.IsCourseRegistered = function(){
+                return $scope.TakeCourseDisabled;
+            }
         }
     })
 
@@ -113,10 +194,15 @@
         url: "/about",
         templateUrl: "partials/about.html"
     })
+    .state('course', {
+        url: "/course",
+        templateUrl: "partials/courses1.html"
+    })
     .state('training', {
         url: "/training",
         templateUrl: "partials/training.html",
         controller: function($scope,$http,$state, $uibModal){
+            console.log("Main Training State");
             $http.get('/api/training').success(function (response){
                 console.log(response);
                 var data = response;
@@ -136,6 +222,30 @@
             };
         }
     })
+    .state('mytraining', {
+        url: "/training/me",
+        templateUrl: "partials/training.html",
+        controller: function($scope, $http, $state, $uibModal){
+            console.log("get My Events in the training html");
+            $http.get('/api/training/myevents').success(function (response){
+                console.log("response :"+ response);
+                $scope.courses = response.courses;
+            }).error(function(err,status){
+                console.log(err);
+            });
+            $scope.openReadMoreModal = function (course) {
+                var modalInstance = $uibModal.open({
+                    animation: true,
+                    templateUrl: 'readmoremodal.html',
+                    controller: 'ModalInstanceCtrl',
+                    resolve: {
+                      modalObject: course
+                    }
+                });
+            };
+        }
+    })
+
     .state('junction', {
         url: "/junction",
         templateUrl: "partials/junction.html",
@@ -206,15 +316,16 @@
 
     //HTML mode for pretty url 
     //Also ensure <base href="/"> is included in the index.html or the main page
-    $locationProvider.html5Mode(true);
+    // $locationProvider.html5Mode(true);
 })
 
 .run(['$http','$rootScope','$window','$localStorage', function($http, $rootScope,$window,$localStorage) {
-    // add JWT token as default auth header
-    // $http.defaults.headers.common.Authorization
-    // $http.defaults.headers.common['Authorization'] = 'Bearer ' + $window.jwtToken;
     if($localStorage.currentUser != undefined && $localStorage.currentUser != null) {
-        console.log("Authorization:" + $localStorage.currentUser.username);
+        console.log("Authorization:" + $localStorage.currentUser.token);
+        // add JWT token as default auth header
+        // $http.defaults.headers.common.Authorization
+        $http.defaults.headers.common.Authorization = $localStorage.currentUser.token;
+        console.log("Authorization:" + $http.defaults.headers.common.Authorization);
     }
     $rootScope.$on('$stateChangeSuccess',function(){
         $window.scrollTo(0,0);
@@ -238,6 +349,7 @@ myapp.controller('ModalInstanceCtrl', function ($scope, $uibModalInstance, $stat
     };
 
     $scope.stateGoToDetails = function (url, params) {
+        console.log(url + '--' + params);
         $state.go(url,params);
         $uibModalInstance.dismiss('cancel');
     };
@@ -268,7 +380,7 @@ myapp.controller('LoginCtrl', function ($location, $uibModalInstance, Authentica
         vm.loading = true;
         AuthenticationService.Login(vm.username, vm.password, function (result) {
             if (result === true) {
-                $location.path('/');
+                // $location.path('/');
                 $uibModalInstance.close({success:true});
                 // $uibModalInstance.dismiss('cancel');
             } else {
@@ -288,8 +400,17 @@ myapp.controller('LoginCtrl', function ($location, $uibModalInstance, Authentica
 //***********************************************************************************//
 //                              Header Navig controller                              //
 //***********************************************************************************//
-myapp.controller('headerCtrl', function ($scope, $uibModal,AuthenticationService) {
+myapp.controller('headerCtrl', function ($scope, $uibModal, $state, AuthenticationService, $localStorage) {
     $scope.Islogged = false;
+
+    //Initialize the Logged State
+    var init = function(){
+        if($localStorage.currentUser != undefined && $localStorage.currentUser != null) {
+            $scope.Islogged = true;
+        }
+    }
+    init();
+
     $scope.openLoginModal = function () {
         var LoginmodalInstance = $uibModal.open({
           animation: true,
@@ -335,6 +456,11 @@ myapp.controller('headerCtrl', function ($scope, $uibModal,AuthenticationService
             $scope.Islogged = !status;
         });
     };
+
+    $scope.getMyEvents = function(){
+        console.log("Get My Events:");
+        $state.go('mytraining');
+    }
 
 });
 

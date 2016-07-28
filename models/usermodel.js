@@ -11,7 +11,6 @@ var Schema = db.schema;
 
 // create a schema
 var userSchema = new Schema({
-  _id: Schema.Types.ObjectId,
   name: String,
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },

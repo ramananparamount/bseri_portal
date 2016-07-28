@@ -5,30 +5,30 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="myModalLabel">{{modalObject.title}}</h4>
+          <h4 class="modal-title" id="myModalLabel">{{modalObject.course.title}}</h4>
         </div>
         <div class="modal-body">
           <div class="row">
 
             <div class="col-md-10 col-md-offset-1">
               <div class="col-md-6">
-                <img class="modal-img" ng-src={{modalObject.smallimage}}>
+                <img class="modal-img" ng-src={{modalObject.course.smallimage}}>
               </div>
               <div class="col-md-6">
-                <p class="modal-desc">{{modalObject.briefdesc}}</p>
+                <p class="modal-desc">{{modalObject.course.briefdesc}}</p>
               </div>
             </div>
             <div>
               <div class="col-md-8">
                 <br>
-                <p class="text-center">Date:  <strong class="modal-date">{{modalObject.StartDate}} </strong> </p>
-                <p class="text-center">Price:  <strong class="modal-price"> {{modalObject.price}} </strong> </p>
+                <p class="text-center">Date:  <strong class="modal-date">{{modalObject.startdate | date : 'dd-MMM-yyyy'}} </strong> </p>
+                <p class="text-center">Price:  <strong class="modal-price"> {{modalObject.Price}} </strong> </p>
               </div>
 
               <div class="col-md-12">
                 <br>
                 <br>
-                <a href="javascript:void(0)" ng-click="stateGoToDetails('trainingdetails',{courseid:modalObject.id})" class="modal-link btn btn-lg  btn-block btn-info">Take this Course</a>
+                <a href="javascript:void(0)" ng-click="stateGoToDetails('trainingdetails', {coursekeyword:modalObject.course.keyword,eventid:modalObject.eventid})" class="modal-link btn btn-lg  btn-block btn-info">Take this Course</a>
               </div>
             </div>
           </div>

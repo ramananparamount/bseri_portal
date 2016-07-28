@@ -69,16 +69,16 @@
 
                           <div class="col-md-8 col-sm-8 col-xs-12 left-col">
 
-                                <h5 class="entry-title">{{course.coursetitle}}</h5>
+                                <h5 class="entry-title">{{course.course.title}}</h5>
 
                                 <div class="entry-thumb pull-left">
-                                    <a href="#"><img ng-src={{course.coursemidimage}} alt="Course image"></a>
+                                    <a href="#"><img ng-src={{course.course.midimage}} alt="Course image"></a>
                                 </div>
 
                                 <div class="entry-content">
-                                    <p>{{course.coursedesc1}}</p>
-                                    <p>{{course.coursedesc2}}</p>
-                                    <p>{{course.coursedesc3}}</p>
+                                    <p>{{course.course.coursedesc1}}</p>
+                                    <p>{{course.course.coursedesc2}}</p>
+                                    <p>{{course.course.coursedesc3}}</p>
 
                                     <br>
 
@@ -235,11 +235,11 @@
                                 <ul class="clearfix">
                                     <li>
                                         <strong>Start</strong>
-                                        <span>{{course.starttime}} - {{course.startdate}}</span>
+                                        <span>9:00AM - {{course.startdate | date : 'dd-MMM-yyyy'}}</span>
                                     </li>
                                     <li>
                                         <strong>End</strong>
-                                        <span>{{course.endtime}} - {{course.enddate}}</span>
+                                        <span>5:00PM - {{course.enddate | date : 'dd-MMM-yyyy'}}</span>
                                     </li>
                                     <li>
                                         <i class="fa fa-map-marker"></i>
@@ -257,19 +257,17 @@
 
                             </div>
                             <!-- event-detail -->
+                            <div class="event-price">
+                                <p>Price</p>
+                                <span>{{course.Price}}</span>
+                            </div>
+                            <!-- event-price -->
 
+                            <!-- <a data-name="register-modal" data-toggle="modal" data-target="#loginModal" class="kopa-button pink-button medium-button">Take this Course</a> -->
+                            <a href="" ng-click="RegisterEvent(course)" ng-disabled="!IsCourseRegistered()" class="kopa-button pink-button medium-button">{{RegisterMsg}}</a>
+                            <!-- <button ng-click="RegisterEvent(course)" ng-disabled="!IsCourseRegistered()" class="btn btn-primary">{{RegisterMsg}}</button> -->
 
-
-                                    <div class="event-price">
-                                        <p>Price</p>
-                                        <span>{{course.price}}</span>
-                                    </div>
-                                    <!-- event-price -->
-
-                                      <a data-name="register-modal" data-toggle="modal" data-target="#loginModal" class="kopa-button pink-button medium-button">Take this Course</a>
-
-
-                                    <a href="checkout.php" class="kopa-button blue-button medium-button hide">Download document</a>
+                            <a href="checkout.php" class="kopa-button blue-button medium-button hide">Download document</a>
 
                           </div>
                           <!-- col-md-4 -->
