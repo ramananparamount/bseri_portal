@@ -41,6 +41,21 @@
 
 
     var myapp = angular.module('bseriApp', ['ui.splash', 'ngAnimate','ui.router', 'ui.bootstrap', 'ngStorage']);
+    myapp.service('sharedPropertiesService', function () {
+        var IsLogged = false;
+
+        return {
+            getIsLogged: function () {
+                console.log("get IsLogged: " + IsLogged);
+                return IsLogged;
+            },
+            setIsLogged: function(value) {
+                console.log("set IsLogged: value = " + value);   
+                IsLogged = value;
+            }
+        };
+    });
+
     myapp.config(function($stateProvider, $urlRouterProvider, $locationProvider){
 
     // For any unmatched url, send to /route1
@@ -95,28 +110,71 @@
     .state('trainingdetails', {
         url: "/training/:coursekeyword/:eventid",
         templateUrl: "partials/singlecourses.html",
-        controller: function($scope,$http,$stateParams,$state,$localStorage,$uibModal,$q){
+        controller: function($scope,$http,$stateParams,$state,$localStorage,$uibModal,$q,sharedPropertiesService){
             console.log("Calling 1st");
-            $scope.details = $http.get('/api/training/' + $stateParams.coursekeyword + "/" + $stateParams.eventid);
-            $scope.registerinfo = $http.get('/api/training/eventIsRegistered' + "/" + $stateParams.eventid);
-
-            $q.all([$scope.details,$scope.registerinfo])
-                .then(function(values){
-                    console.log(values[0].data);
-                    console.log(values[1].data);
-                    $scope.course = values[0].data.course;
-                    if(values[1].data.isregistered){
+            $http.get('/api/training/' + $stateParams.coursekeyword + "/" + $stateParams.eventid)
+                .then(function(res){
+                    console.log("return 1st");
+                    console.log(res);
+                    $scope.course = res.data.course;
+                    if(sharedPropertiesService.getIsLogged()){
+                        console.log("Logged in State");
+                        return $http.get('/api/training/eventIsRegistered' + "/" + $stateParams.eventid);
+                    }
+                    else
+                    {
+                        console.log("Logged out State");
+                        return (res.data.isregistered = false);
+                    }
+                })
+                .then(function (res1){
+                    console.log("return 2nd");
+                    console.log(res1);
+                     if(res1 && res1.data.isregistered){
                         $scope.RegisterMsg = "Course Registered";
-                        $scope.TakeCourseDisabled = true;
+                        $scope.IsCourseRegistered = true;
+                        $scope.disable = "disabled";
                         // $scope.anchorlinkRegister = "";
                     }
                     else
                     {
                         $scope.RegisterMsg = "Take Course";
-                        $scope.TakeCourseDisabled = false;
+                        $scope.IsCourseRegistered = false;
+                        $scope.disable = "";
                         // $scope.anchorlinkRegister = "javascript:void(0)";
                     }
+ 
+                })
+                .catch(function (err){
+                    console.log(err);
                 });
+
+
+
+            // $scope.details = $http.get('/api/training/' + $stateParams.coursekeyword + "/" + $stateParams.eventid);
+            // $scope.registerinfo = $http.get('/api/training/eventIsRegistered' + "/" + $stateParams.eventid);
+
+            // $q.all([$scope.details, $scope.registerinfo])
+            //     .then(function(values){
+
+            //         console.log(values[0].data);
+            //         console.log(values[1].data);
+            //         $scope.course = values[0].data.course;
+            //          if(values[1].data.isregistered){
+            //             $scope.RegisterMsg = "Course Registered";
+            //             $scope.TakeCourseDisabled = true;
+            //             // $scope.anchorlinkRegister = "";
+            //         }
+            //         else
+            //         {
+            //             $scope.RegisterMsg = "Take Course";
+            //             $scope.TakeCourseDisabled = false;
+            //             // $scope.anchorlinkRegister = "javascript:void(0)";
+            //         }
+            //     })
+            //     .catch(function (err){
+            //         console.log(err);
+            //     });
 
             $scope.openLoginModal = function () {
                 var LoginmodalInstance = $uibModal.open({
@@ -128,7 +186,7 @@
 
                 LoginmodalInstance.result.then(function (res){
                     if(res.success){
-                        $scope.Islogged = true;
+                        sharedPropertiesService.setIsLogged(true);
                         console.log("close:" + res);
                     }
                     else if(res.openSignup){
@@ -174,7 +232,7 @@
                                 console.log("into DOM manipulation");
                                 $scope.RegisterMsg = "Course Registered";
                                 $scope.TakeCourseDisabled = true;
-                                $scope.anchorlinkRegister = "";
+                                // $scope.anchorlinkRegister = "";
                             }
                             $scope.snackbarMsg = response.message;
                         })
@@ -182,10 +240,6 @@
                             console.log(err);     
                         });
                 }
-            }
-
-            $scope.IsCourseRegistered = function(){
-                return $scope.TakeCourseDisabled;
             }
         }
     })
@@ -400,13 +454,14 @@ myapp.controller('LoginCtrl', function ($location, $uibModalInstance, Authentica
 //***********************************************************************************//
 //                              Header Navig controller                              //
 //***********************************************************************************//
-myapp.controller('headerCtrl', function ($scope, $uibModal, $state, AuthenticationService, $localStorage) {
+myapp.controller('headerCtrl', function ($scope, $uibModal, $state, AuthenticationService, $localStorage, sharedPropertiesService) {
     $scope.Islogged = false;
 
     //Initialize the Logged State
     var init = function(){
         if($localStorage.currentUser != undefined && $localStorage.currentUser != null) {
             $scope.Islogged = true;
+            sharedPropertiesService.setIsLogged($scope.Islogged);
         }
     }
     init();
@@ -422,6 +477,7 @@ myapp.controller('headerCtrl', function ($scope, $uibModal, $state, Authenticati
         LoginmodalInstance.result.then(function (res){
             if(res.success){
                 $scope.Islogged = true;
+                sharedPropertiesService.setIsLogged($scope.Islogged);
                 console.log("close:" + res);
             }
             else if(res.openSignup){
@@ -454,6 +510,7 @@ myapp.controller('headerCtrl', function ($scope, $uibModal, $state, Authenticati
         AuthenticationService.Logout(function(status){
             console.log("Logout:" + status);
             $scope.Islogged = !status;
+            sharedPropertiesService.setIsLogged($scope.Islogged);
         });
     };
 

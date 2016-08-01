@@ -33,11 +33,11 @@
                                 <a href="blog1.php"><!-- <i class="fa fa-rss" aria-hidden="true"> </i>--><span>Blog</span></a>
                           </li>
 
-                          <li class="flip-back" ng-show="!Islogged">
+                          <li class="flip-back" ng-show="!Islogged" ng-model="Islogged">
                               <a href="javascript:void(0)" ng-click="openLoginModal()">Login</a>                          
                           </li>
 
-                          <li class="flip-back" ng-show="Islogged">
+                          <li class="flip-back" ng-show="Islogged" ng-model="Islogged">
                               <a href="javascript:void(0)"> <i class="fa fa-user"> </i></a>
                               <ul>
                                   <li><a href="javascript:void(0)" ng-click="getMyEvents()">My Courses</a></li>

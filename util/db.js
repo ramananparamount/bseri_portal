@@ -8,7 +8,7 @@ mongoose.Promise = Promise;
 
 //Should not use async when calling from webpage
 mongoose.connect(db.dbconnectstr);
-
+// console.log(db.dbconnectstr);
 
 
 // mongoose.createConnection(db.dbconnectstr, function (error) {

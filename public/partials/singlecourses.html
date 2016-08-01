@@ -55,7 +55,7 @@
         </div>
         <!-- kopa-breadcrumb -->
 
-        <section class="kopa-area kopa-area-31">
+        <section class="kopa-area kopa-area-32">
 
             <div class="container">
 
@@ -264,7 +264,7 @@
                             <!-- event-price -->
 
                             <!-- <a data-name="register-modal" data-toggle="modal" data-target="#loginModal" class="kopa-button pink-button medium-button">Take this Course</a> -->
-                            <a href="" ng-click="RegisterEvent(course)" ng-disabled="!IsCourseRegistered()" class="kopa-button pink-button medium-button">{{RegisterMsg}}</a>
+                            <a href="" ng-click="RegisterEvent(course)" ng-disabled="IsCourseRegistered" ng-model="IsCourseRegistered" class="kopa-button pink-button medium-button btn" ng-class={{disable}}>{{RegisterMsg}}</a>
                             <!-- <button ng-click="RegisterEvent(course)" ng-disabled="!IsCourseRegistered()" class="btn btn-primary">{{RegisterMsg}}</button> -->
 
                             <a href="checkout.php" class="kopa-button blue-button medium-button hide">Download document</a>

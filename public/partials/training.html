@@ -36,7 +36,7 @@
         </header>
         <!-- page-header -->
 
-        <div itemtype="http://data-vocabulary.org/Breadcrumb" itemscope="" class="kopa-breadcrumb">
+        <div itemtype="http://data-vocabulary.org/Breadcrumb" itemscope="" class="kopa-breadcrumb hide">
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
@@ -142,19 +142,20 @@
 
                     	<div class="widget kopa-masonry-list-2-widget">
 
-	    					<div class="widget-title widget-title-s5 text-center">
+          	    					<div class="widget-title widget-title-s5 text-center">
 	                            <span></span>
 	                            <h2>Recent Courses</h2>
 	                            <p>See our features courses or see all courses to see all.</p>
 	                        </div>
 
-	    					<div class="masonry-list-wrapper">
+          	    					<div class="masonry-list-wrapper">
 
                                 <ul class="clearfix">
 
                                     <!-- <% for( i = 0 ; i < courses.length ; i ++) { %> -->
                                         <li class="masonry-item" ng-repeat="course in courses">
-                                            <article class="entry-item hot-item">
+                                            <a class="entry-item-anchor" href="javascript:void(0)" ng-click="openReadMoreModal(course)">
+                                              <article class="entry-item hot-item">
                                                 <div class="entry-thumbx">
                                                     <div class="mask"></div>
                                                     <a href="#"><img ng-src= {{course.course.smallimage}} alt="course image"></a>
@@ -173,6 +174,7 @@
                                                 </div>
 
                                             </article>
+                                          </a>
                                         </li>
                                         <!-- masonry-item -->
 

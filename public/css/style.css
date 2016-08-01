@@ -3811,7 +3811,8 @@ Kopa article list 3 widget
 .kopa-area-5 .kopa-article-list-3-widget .widget-content ul li {
   width: 33.333333%; }
   .kopa-area-5 .kopa-article-list-3-widget .widget-content ul li .entry-item .entry-content {
-    color: #d7d7d8; }
+    color: #d7d7d8;
+     }
     .kopa-area-5 .kopa-article-list-3-widget .widget-content ul li .entry-item .entry-content .entry-title a {
       color: #ffffff; }
       .kopa-area-5 .kopa-article-list-3-widget .widget-content ul li .entry-item .entry-content .entry-title a:hover {
@@ -4322,8 +4323,13 @@ Kopa article list 4 widget
 Kopa masonry list 2 widget
 ----------------------------------
 */
+.kopa-area-31 {
+  background-color: rgb(233,233,233);
+}
+
 .kopa-masonry-list-2-widget .masonry-list-wrapper {
-  margin: -30px 0 0 -30px; }
+  margin: -30px 0 0 -30px;
+   }
   .kopa-masonry-list-2-widget .masonry-list-wrapper > ul {
     margin: 0;
     padding: 0; }
@@ -4335,7 +4341,16 @@ Kopa masonry list 2 widget
       width: 25%; }
       .kopa-masonry-list-2-widget .masonry-list-wrapper > ul > li .entry-item {
         position: relative;
-        background-color: #ffffff; }
+        background-color: rgba(250,250,250,0.6);
+        cursor: pointer; 
+        transition: all 0.3s ease;}
+      .kopa-masonry-list-2-widget .masonry-list-wrapper > ul > li .entry-item:hover {
+        background-color: rgba(255,255,255,1);
+        cursor: pointer; 
+        transform: scale(1.1,1.1);
+      }
+
+
         .kopa-masonry-list-2-widget .masonry-list-wrapper > ul > li .entry-item.hot-item .entry-thumb .entry-hot {
           display: block; }
         .kopa-masonry-list-2-widget .masonry-list-wrapper > ul > li .entry-item .entry-thumb {
@@ -4344,7 +4359,8 @@ Kopa masonry list 2 widget
           .kopa-masonry-list-2-widget .masonry-list-wrapper > ul > li .entry-item .entry-thumb .entry-hot {
             background-color: #ed145b;
             color: #ffffff;
-            text-transform: uppercase;
+            /*Added by Ramanan*/
+            /*text-transform: uppercase;*/
             padding: 14px 14px 12px;
             position: absolute;
             left: 10px;
@@ -4393,7 +4409,8 @@ Kopa masonry list 2 widget
           .kopa-masonry-list-2-widget .masonry-list-wrapper > ul > li .entry-item .entry-content .entry-title {
             margin-bottom: 0;
             margin-right: 25%;
-            text-transform: uppercase;
+            /*Added by Ramanan*/
+            /*text-transform: uppercase;*/
             font-weight: 400;
             font-size: 15px;
             line-height: 21px; }

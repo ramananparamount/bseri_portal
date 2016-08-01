@@ -1,8 +1,8 @@
 db.homeslider.insert(
-[{seq:1, media:"video",video:'/images/cook.mp4',image: '/images/main1.jpg' , type:"video/mp4", title: "BSERI Banner 2", detailslink: "/training/msf", status:'active'},
-{seq:2, media:"image",image: '/images/main1.jpg', title: "BSERI Banner 1", detailslink: "/training/msf", status:'active'},
-{seq:3, media:"image",image: '/images/main2.jpg', title: "BSERI Banner 3", detailslink: "/training/msf", status:'active'},
-{seq:4, media:"image",image: '/images/main3.jpg', title: "BSERI Banner 4", detailslink: "/training/msf", status:'active'}])
+[{seq:1, media:"video",video:'/images/cook.mp4',image: '/images/home-01-563x616.png' , type:"video/mp4", title: "BSERI Banner 2", subtitle:"BSERI Sub title lorem ipsum lorem ipsum", detailslink: "/training/msf", status:'active'},
+{seq:2, media:"image",image: '/images/home-02-680x488.png', title: "BSERI Banner 1", subtitle:"BSERI Sub title lorem ipsum lorem ipsum", detailslink: "/training/msf", status:'active'},
+{seq:3, media:"image",image: '/images/home-03-363x606.png', title: "BSERI Banner 3", subtitle:"BSERI Sub title lorem ipsum lorem ipsum", detailslink: "/training/msf", status:'active'},
+{seq:4, media:"image",image: '/images/home-02-680x488.png', title: "BSERI Banner 4", subtitle:"BSERI Sub title lorem ipsum lorem ipsum", detailslink: "/training/msf", status:'active'}])
 
 
 db.courses.insert(

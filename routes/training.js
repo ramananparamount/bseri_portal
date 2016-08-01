@@ -107,7 +107,7 @@ router.get('/eventIsRegistered/:eventid',requireAuth, function(req, res){
             else
             {
                 console.log("Event Not registered for the user");
-                return res.status(200).json({ isregistered: false, message: 'Event Already registered for the user.'});
+                return res.status(200).json({ isregistered: false, message: 'Event Not registered for the user.'});
             }
         });
     });
