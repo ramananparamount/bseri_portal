@@ -40,7 +40,7 @@
     ]);
 
 
-    var myapp = angular.module('bseriApp', ['ui.splash', 'ngAnimate','ui.router', 'ui.bootstrap', 'ngStorage']);
+    var myapp = angular.module('bseriApp', ['ui.splash', 'ngAnimate', 'ui.router', 'ui.bootstrap', 'ngStorage','angular.snackbar']);
     myapp.service('sharedPropertiesService', function () {
         var IsLogged = false;
 
@@ -56,6 +56,30 @@
         };
     });
 
+    //***********************************************************************************//
+    //                              validPasswordC Directive                             //
+    //***********************************************************************************//
+
+    myapp.directive('validPasswordC', function() {
+        return {
+            require: 'ngModel',
+            scope: {
+              reference: '=validPasswordC'
+            },
+            link: function(scope, elm, attrs, ctrl) {
+                ctrl.$parsers.unshift(function(viewValue, $scope) {
+                    var noMatch = viewValue != scope.reference
+                    ctrl.$setValidity('noMatch', !noMatch);
+                    return (noMatch)?noMatch:!noMatch;
+                });
+
+                scope.$watch("reference", function(value) {;
+                    ctrl.$setValidity('noMatch', value === ctrl.$viewValue);
+                });
+            }
+        }
+    });
+
     myapp.config(function($stateProvider, $urlRouterProvider, $locationProvider){
 
     // For any unmatched url, send to /route1
@@ -67,14 +91,39 @@
         templateUrl: "partials/home.html",
         controller: function ($scope, $http, $filter, $uibModal) {
 
+            $scope.myInterval = 5000;
+            $scope.noWrapSlides = false;
+            $scope.active = 0;
+            var slides = $scope.contents = [];
+            var currIndex = 0;
+
+            $scope.addSlide = function(content) {
+                slides.push({
+                    image: content.image,
+                    title: content.title,
+                    subtitle: content.subtitle,
+                    media:content.media,
+                    video:content.video,
+                    type: content.type,
+                    seq: currIndex++
+                });
+                console.log(content);
+            };
+
             $scope.IsAVideo = function(content) {
                 return (content.media == 'video');
             };
             $http.get('/api/home').success(function (response){
                     console.log(response);
                     var data = response;
-                    $scope.courses=data.courses;
-                    $scope.contents = data.contents;
+                    $scope.courses=response.courses;
+                    // $scope.contents = response.contents;
+                    // console.log($scope.contents);
+                    
+                    //Load the corousel images
+                    for (var i = 0; i < response.contents.length; i++) {
+                        $scope.addSlide(response.contents[i]);
+                    }
                     // $scope.user = data.user;
                     // $scope.testimonials = data.testimonials;
                     //console.log(details[0]);
@@ -341,7 +390,7 @@
                     console.log("Getting from service catID:"+catID + ' for tabIdx = ' + tabIdx);
                     $http.get('/api/junction/' + catID).success(function(response){
                         // console.log(response.items);
-                        $scope.categories[tabIdx].blurbs = response.items;
+                        $scope.categories[tabIdx].blurbs = response.blurbs;
                         // console.log($scope.categories[tabIdx].blurbs[0].title);
                         $scope.categories[tabIdx].isLoaded=true;
                     }).error(function(err,status){
@@ -365,7 +414,10 @@
     })
     .state('blog', {
         url: "/blog",
-        templateUrl: "partials/blog.html"
+        // templateUrl: "partials/home.html"
+        controller: function($state){
+            $state.go('home');
+        }
     })
 
     //HTML mode for pretty url 
@@ -404,7 +456,7 @@ myapp.controller('ModalInstanceCtrl', function ($scope, $uibModalInstance, $stat
 
     $scope.stateGoToDetails = function (url, params) {
         console.log(url + '--' + params);
-        $state.go(url,params);
+        $state.go(url, params);
         $uibModalInstance.dismiss('cancel');
     };
 
@@ -414,7 +466,7 @@ myapp.controller('ModalInstanceCtrl', function ($scope, $uibModalInstance, $stat
 //***********************************************************************************//
 //                              Login Window controller                              //
 //***********************************************************************************//
-myapp.controller('LoginCtrl', function ($location, $uibModalInstance, AuthenticationService) {
+myapp.controller('LoginCtrl', function ($location, $uibModalInstance, AuthenticationService, snackbar) {
     var vm = this;
     vm.login = login;
      
@@ -432,15 +484,18 @@ myapp.controller('LoginCtrl', function ($location, $uibModalInstance, Authentica
     function login() {
         vm.error = false;
         vm.loading = true;
-        AuthenticationService.Login(vm.username, vm.password, function (result) {
+        AuthenticationService.Login(vm.username, vm.password, function (result, message) {
             if (result === true) {
                 // $location.path('/');
                 $uibModalInstance.close({success:true});
+                snackbar.create("Login Successful!", 5000);
                 // $uibModalInstance.dismiss('cancel');
             } else {
-                vm.error = 'Username or password is incorrect';
+                vm.error = false;//'Username or password is incorrect';
                 vm.loading = false;
-            }
+                vm.userForm.$submitted = false;
+                snackbar.create(message, 5000);
+             }
         });
     };
 
@@ -454,7 +509,7 @@ myapp.controller('LoginCtrl', function ($location, $uibModalInstance, Authentica
 //***********************************************************************************//
 //                              Header Navig controller                              //
 //***********************************************************************************//
-myapp.controller('headerCtrl', function ($scope, $uibModal, $state, AuthenticationService, $localStorage, sharedPropertiesService) {
+myapp.controller('headerCtrl', function ($scope, $uibModal, $state, AuthenticationService, $localStorage, sharedPropertiesService, snackbar) {
     $scope.Islogged = false;
 
     //Initialize the Logged State
@@ -511,6 +566,17 @@ myapp.controller('headerCtrl', function ($scope, $uibModal, $state, Authenticati
             console.log("Logout:" + status);
             $scope.Islogged = !status;
             sharedPropertiesService.setIsLogged($scope.Islogged);
+            if(status){
+                // Toast Message showing the stataus
+                snackbar.create("Logout Successful");
+
+            }
+            else {
+                // Toast Message showing the stataus
+                snackbar.create("Error in Logout");
+
+            }
+
         });
     };
 
@@ -524,7 +590,7 @@ myapp.controller('headerCtrl', function ($scope, $uibModal, $state, Authenticati
 //***********************************************************************************//
 //                              Signup Window controller                             //
 //***********************************************************************************//
-myapp.controller('RegisterCtrl', function ($location, $uibModalInstance, AuthenticationService) {
+myapp.controller('RegisterCtrl', function ($location, $uibModalInstance, AuthenticationService, snackbar) {
     var vm = this;
      
     initController();
@@ -538,31 +604,48 @@ myapp.controller('RegisterCtrl', function ($location, $uibModalInstance, Authent
     };
      
     vm.register = function () {
-        vm.error = false;
-        vm.loading = true;
-        if (vm.password != vm.confirmpassword) {
-            console.log("Register password mismatch");
-            vm.error = 'Password & Confirm Password doesnot match';
+        console.log("Entry to Register");
+        console.log("Is Valid" + vm.userForm.$valid);
+        if(vm.userForm.$valid) {
+            console.log("valid form");
+            vm.error = false;
+            vm.loading = true;
+            if (vm.password != vm.confirmpassword) {
+                console.log("Register password mismatch");
+                vm.error = false; //'Password & Confirm Password doesnot match';
+                vm.loading = false;
+                vm.userForm.$submitted = false;
+                snackbar.create('Password & Confirm Password doesnot match');
+                return;
+            }
+
+            console.log(vm.email);
+            console.log(vm.password);
+            console.log(vm.username);
+            console.log(vm.phone);
+            AuthenticationService.Register(vm.email, vm.password, vm.username, vm.phone,  function (result) {
+                if (result.success) {
+                    // $location.path('/');
+                    $uibModalInstance.close({success:true});
+                    // Toast Message That registration is done
+                    snackbar.create(result.message);
+                    // $uibModalInstance.dismiss('cancel');
+                } else {
+                    vm.error = false ;//result.message;
+                    vm.loading = false;
+                    vm.userForm.$submitted = false;
+                    // Toast Message showing the error
+                    snackbar.create(result.message);
+                }
+            });
+        }
+        else
+        {
+            console.log("Register Invalid- This flow Should not happen");
+            vm.error = 'Invalid inputs';
             vm.loading = false;
             return;
         }
-
-        console.log(vm.email);
-        console.log(vm.password);
-        console.log(vm.username);
-        console.log(vm.phone);
-        AuthenticationService.Register(vm.email, vm.password, vm.username, vm.phone,  function (result) {
-            if (result === true) {
-                // $location.path('/');
-                $uibModalInstance.close({success:true});
-                // Toast Message That registration is done
-
-                // $uibModalInstance.dismiss('cancel');
-            } else {
-                vm.error = result.message;
-                vm.loading = false;
-            }
-        });
     };
 });
 

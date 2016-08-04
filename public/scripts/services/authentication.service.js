@@ -11,6 +11,7 @@
         service.Login = Login;
         service.Logout = Logout;
         service.Register = Register;
+        service.IsUserExists = IsUserExists;
         service.flushLoginTokens = flushLoginTokens;
  
         return service;
@@ -29,10 +30,10 @@
                         // console.log($http.defaults.headers.common.Authorization);
  
                         // execute callback with true to indicate successful login
-                        callback(true);
+                        callback(true, null);
                     } else {
                         // execute callback with false to indicate failed login
-                        callback(false);
+                        callback(false, response.message);
                     }
                 })
                 .error(function (err,status){
@@ -72,6 +73,15 @@
         }
 
 
+        function IsUserExists(username, callback) {
+            $http.post('/api/home/getuser/:username')
+                .success(function (response) {
+                    callback(response);
+                })
+                .error(function (err,status){
+                    console.log(err);
+                });
+        }
  
         function Logout(callback) {
             console.log("entering Logout");

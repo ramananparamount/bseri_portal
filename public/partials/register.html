@@ -1,50 +1,90 @@
 <div class="modal fade" id="registerModal" tabindex="-1" role="dialog">
     <div class="modal-dialog">
-<script type="text/ng-template" id="register.html">
+        <script type="text/ng-template" id="register.html">
         <div class="modal-content text-center">
             <div id="contact-form">
                 <div class="contact-form-title text-center" style="margin-bottom: 30px !important;">
                     <h2>Sign up</h2>
                 </div>
 
-                <div  ng-if="vm.error" class="alert alert-danger" id="response">{{vm.error}}</div>
-                <form class="contact-form clearfix" ng-submit="vm.register()" novalidate="novalidate">
+                <div ng-if="vm.error" class="help-block" id="response">{{vm.error}}</div>
+                <form name="vm.userForm" class="contact-form clearfix" ng-submit="vm.register()" novalidate="">
                     <div class="row">
                         <div class="col-md-8 col-md-offset-2">
                             <button class="btn btn-block btn-lg btn-info"><span class="fa fa-facebook"></span> &nbsp;Sign up with Facebook</button>
                             <button class="btn btn-block btn-lg btn-danger"><span class="fa fa-google"></span>&nbsp;Sign up with Google</button>
                             <br> <p class="text-center">Or</p>
                             <!-- col-md-4 -->
-                            <p class="input-block">
+                            <div class="input-block" ng-class="{ 'has-error' : vm.userForm.email.$invalid && !vm.userForm.email.$pristine }" >
                                 <label class="required" for="contact_email"><i class="fa fa-envelope"></i></label>
-                                <input type="text" class="valid" name="email" id="contact_email" value="" placeholder="Email*"  ng-model="vm.email">
+                                <input type="email" class="valid" name="email" id="contact_email" value="" placeholder="Email*"  ng-model="vm.email" ng-model-options="{ updateOn: 'blur' }">
+
+                                <div ng-show="vm.userForm.email.$invalid && !vm.userForm.email.$pristine">
+                                    <span class="help-block">Enter a valid email.</span>
+                                </div>
+                            </div>
+
+                            <p class="input-block" ng-class="{ 'has-error' : vm.userForm.password.$invalid && !vm.userForm.password.$pristine }">
+                                <label class="required" for="contact_password"><i class="fa fa-key"></i></label>
+                                <input type="password" class="valid" name="password" id="contact_password" value="" placeholder="Password*"  ng-model="vm.password" ng-minlength="8" ng-maxlength="16" ng-model-options="{ debounce: 500}">
+<!--                                 <div ng-show="userForm.password.$invalid && !userForm.password.$pristine">
+                                    <span class="help-block">Enter a valid password.</span>
+                                </div> -->
+                                <div ng-show="vm.userForm.password.$error.minlength">
+                                    <span class="help-block">Password must be between 8 and 16 characters.</span>
+                                </div>
+                                <div ng-show="vm.userForm.password.$error.maxlength">
+                                    <span class="help-block">Password must be between 8 and 16 characters</span>
+                                </div>
                             </p>
 
-                            <p class="input-block">
-                                <label class="required" for="contact_password"><i class="fa fa-envelope"></i></label>
-                                <input type="password" class="valid" name="password" id="contact_password" value="" placeholder="Password*"  ng-model="vm.password">
+                            <p class="input-block" ng-class="{ 'has-error' : vm.userForm.confirmpassword.$invalid && !vm.userForm.confirmpassword.$pristine }">
+                                <label class="required" for="contact_password"><i class="fa fa-key"></i></label>
+                                <input type="password" class="valid" name="confirmpassword" id="contact_confirmpassword" value="" placeholder="Confirm Password*"  ng-model="vm.confirmpassword" ng-minlength="8" ng-maxlength="16" ng-model-options="{updateOn: 'blur'}" valid-password-c="vm.password">
+<!--                                 <div ng-show="userForm.confirmpassword.$invalid && !userForm.password.$pristine">
+                                    <span class="help-block">Enter a valid password.</span>
+                                </div> -->
+                                <div ng-show="vm.userForm.confirmpassword.$error.noMatch">
+                                    <span class="help-block">Must match the password</span>
+                                </div>
+                                <div ng-show="vm.userForm.confirmpassword.$error.minlength">
+                                    <span class="help-block">Password must be between 8 and 16 characters</span>
+                                </div>
+                                <div ng-show="vm.userForm.confirmpassword.$error.maxlength">
+                                    <span class="help-block">Password must be between 8 and 16 characters</span>
+                                </div>
                             </p>
 
-                            <p class="input-block">
-                                <label class="required" for="contact_password"><i class="fa fa-envelope"></i></label>
-                                <input type="password" class="valid" name="confirmpassword" id="contact_confirmpassword" value="" placeholder="Confirm Password*"  ng-model="vm.confirmpassword">
-                            </p>
-
-                            <p class="input-block">
+                            <p class="input-block" ng-class="{ 'has-error' : vm.userForm.username.$invalid && !vm.userForm.username.$pristine }">
                                 <label class="required" for="contact_name"><i class="fa fa-user"></i></label>
-                                <input type="text" class="valid" name="username" id="contact_name" value="" placeholder="Name*"  ng-model="vm.username">
+                                <input type="text" class="valid" name="username" id="contact_name" value="" placeholder="Name*"  ng-model="vm.username" ng-minlength="3" ng-maxlength="30" ng-model-options="{ debounce: 500, updateOn: 'blur' }">
+                                <div ng-show="vm.userForm.username.$error.minlength">
+                                    <span class="help-block">Username must be between 3 and 30 characters</span>
+                                </div>
+                                <div ng-show="vm.userForm.username.$error.maxlength">
+                                    <span class="help-block">Username must be between 3 and 30 characters</span>
+                                </div>
                             </p>
                             <!-- col-md-4 -->
 
                             <p class="input-block">
                                 <label class="required" for="phone"><i class="fa fa-phone"></i></label>
-                                <input type="text" id="phone" value="" class="valid" name="url" placeholder="Phone"  ng-model="vm.phone">
+                                <input type="text" id="phone" value="" class="valid" name="phone" placeholder="Phone" ng-model="vm.phone" ng-minlength="9" ng-maxlength="10" ng-model-options="{ debounce: 500}">
+                                <div ng-show="vm.userForm.phone.$error.maxlength">
+                                    <span class="help-block">Enter a valid phone number</span>
+                                </div>
+                                <div ng-show="vm.userForm.phone.$error.minlength">
+                                    <span class="help-block">Enter a valid phone number</span>
+                                </div>
+                                <!-- <p ng-show="userForm.phone.$invalid && !userForm.phone.$pristine" class="help-block">Enter a valid phone number.</p> -->
                             </p>
                             <br>
                             <p class="contact-button clearfix">
-                                <input type="submit" ng-disabled="vm.loading" class="input-submit" id="submit-contact" value="Register">
+                                <button type="submit" ng-disabled="vm.userForm.$pristine || vm.userForm.$invalid || vm.userForm.$submitted" class="input-submit" id="submit-contact" value="Register">Register</button>
+                                <!-- <input type="submit" ng-disabled="userForm.$invalid" class="input-submit" id="submit-contact" value="Register"> -->
                             </p>
                             <br>
+
                         </div>
                         <!-- col-md-12 -->
                     </div>

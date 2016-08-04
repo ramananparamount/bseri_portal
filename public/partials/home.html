@@ -5,11 +5,55 @@
     <div id="main-content">
         <section class="container-fluid">
             <div class="home-slider home-slider-1">
-                <div class="owl-carousel owl-carousel-1">
+                <div class="uib-carousel-1">
+                  <div uib-carousel active="0" interval="myInterval" no-wrap="noWrapSlides" class="item row">
+                    <div uib-slide ng-repeat="content in contents" index="content.seq">
+                        <article class="entry-item">
+                            <div class="entry-thumbin">
+                                <a ng-href={{content.detailslink}}>
+                                  <img ng-src={{content.image}} alt="Banner">
+                                </a>
+                                <div class="mask"></div>
+                            </div>
+                            <div class="entry-content">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-md-6 col-sm-6 col-xs-12 left-col">
+                                          <h2><a href="#">{{content.title}}</a></h2>
+                                            <button type="button" class="btn btn-primary btn-lg" ng-click="openVideoModal(content)" ng-show="IsAVideo(content)">Play Video</button>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6 col-xs-12 right-col hide">
+                                            <div class="row ">
+                                                <div class="col-md-8 col-md-offset-4 panel" style=" background: rgba(0,0,0,0.6)!important;">
+                                                  <p>Lorem ipsum dolor sit amet.</p>
+                                                <button class="btn btn-info"> Know more</button>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-8 col-md-offset-4 panel"  style=" background: rgba(0,0,0,0.6)!important;">
+                                                  <p>Lorem ipsum dolor sit amet.</p>
+                                                 <button class="btn btn-info">Know more</button>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-8 col-md-offset-4 panel"  style=" background: rgba(0,0,0,0.6)!important;">
+                                                  <p>Lorem ipsum dolor sit amet,</p>
+                                                 <button class="btn btn-info">Know more</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                              </div>
+                          </article>
+                    </div>
+                  </div>              
+                </div>
 
-                        <div class="item" ng-repeat="content in contents">
 
-                            <article class="entry-item">
+                <!-- <div class="owl-carousel owl-carousel-1"> -->
+                        <!-- <div class="item" ng-repeat="content in contents"> -->
+<!--                             <article class="entry-item">
                               <div class="entry-thumbin w3-animate-opacity">
                                   <a ng-href={{content.detailslink}}>
                                     <img ng-src={{content.image}} alt="Banner">
@@ -21,8 +65,6 @@
                                       <div class="row">
                                           <div class="col-md-6 col-sm-6 col-xs-12 left-col">
                                             <h2><a href="#">{{content.title}}</a></h2>
-<!--                                               <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#videoModal" data-title="test" data-link={{content.video}} ng-show="IsAVideo(content)">Play Video</button>
- -->
                                               <button type="button" class="btn btn-primary btn-lg" ng-click="openVideoModal(content)" ng-show="IsAVideo(content)">Play Video</button>
                                           </div>
                                           <div class="col-md-6 col-sm-6 col-xs-12 right-col">
@@ -46,18 +88,18 @@
                                       </div>
                                   </div>
                               </div>
-                          </article>
+                            </article> -->
                           <!-- entry-item -->
 
-                      </div>
+                      <!-- </div> -->
                       <!-- item -->
-                  </div>
+                  <!-- </div> -->
                   <!-- owl-carousel-1 -->
 
-                  <div class="loading">
+<!--                   <div class="loading" ng-show="IsLoading()">
                       <i class="fa fa-refresh fa-spin"></i>
                   </div>
-                  <!-- loading -->
+ -->                  <!-- loading -->
 
               </div>
               <!-- home-slider -->

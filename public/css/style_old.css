@@ -35,24 +35,15 @@ License URI: http://www.gnu.org/licenses/gpl-3.0.html
 * -----------------------------------------------------------------------------
 */
 /**1.1 Sass **/
-.modal_scroll {
-	overflow: auto !important;
-}
-.transparent-bg {
-	background: rgba(0,0,0,0.6)!important;
-}
-.pointer{
-    cursor: pointer;
-}
 .tab-content{
     border: none !important;
 }
-.z-index{
-            left: 0;
-            position: absolute;
-            top: 0;
-            width: 100%;
-            z-index: 2;
+.zorder{
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 2;
 }
 .entry-thumbin{
     height: 550px;
@@ -66,6 +57,33 @@ License URI: http://www.gnu.org/licenses/gpl-3.0.html
 .h50{
   height: 50px !important;
 }
+/*Ramanan for Video Dialog to appear large*/
+.video-modal-dialog {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin:0;
+}
+
+.video-modal-content {
+  min-height: 100%;
+  height: auto;
+}
+
+/*Ramanan for Circle button*/
+
+.btn-circle {
+  width: 30px;
+  height: 30px;
+
+  /*text-align: center;*/
+  /*padding: 6px 0;*/
+  font-size: 12px;
+  line-height: 1.428571429;
+  border-radius: 15px;
+}
+
+
 .menu ul.nav li {
   display: inline-block;
   height: 40px;
@@ -506,7 +524,8 @@ body {
   position: relative; }
 
 .kopa-area-5 {
-  background-image: url(http://placehold.it/1366x730);
+  /*background-image: url(http://placehold.it/1366x730);*/
+  background-image: url('/images/droplets_1366x768.jpg');
   position: relative; }
 
 .kopa-area-6 {
@@ -2012,11 +2031,10 @@ body {
     /* Good browsers */
     opacity: .4; }
     .kopa-testimonial-list-1-widget .owl-theme .owl-controls .owl-buttons div {
-        height: 67%;
-       border-radius: 0%;
-       margin-top: -11%;
-       opacity: .7;
-
+      height: 70%;
+      border-radius: 0%;
+      margin-top: -15%;
+      opacity:.1;
     }
     .kopa-testimonial-list-1-widget .owl-theme .owl-controls .owl-buttons div:before {
 
@@ -2027,12 +2045,12 @@ body {
 
       opacity: 1; }
     .owl-theme .owl-controls .owl-buttons div.owl-prev {
-      left: 3%;
+      left: 2%;
       padding-right: 2px; }
       .owl-theme .owl-controls .owl-buttons div.owl-prev:before {
         content: "\f104"; }
     .owl-theme .owl-controls .owl-buttons div.owl-next {
-      right: 1%;
+      right: 2%;
       padding-left: 2px; }
       .owl-theme .owl-controls .owl-buttons div.owl-next:before {
         content: "\f105"; }
@@ -2091,7 +2109,9 @@ body {
     padding: 0;
     float: left; }
     #top-nav #top-menu > li:hover > a, #top-nav #top-menu > li.sfHover > a {
-      background-color: #155588; }
+      background-color: #155588;
+      /*Added by Ramanan*/
+      color: #ffffff; }
       #top-nav #top-menu > li:hover > a i, #top-nav #top-menu > li.sfHover > a i {
         color: #17376e; }
     #top-nav #top-menu li {
@@ -2619,7 +2639,7 @@ body {
   .top-main-nav-mobile .pull {
     font-size: 28px;
     font-weight: 700;
-    color: rgb(24, 68, 137);
+    color: #ffffff;
     text-transform: uppercase;
     z-index: 99;
     position: relative;
@@ -2631,7 +2651,7 @@ body {
       color: #fff; }
   .top-main-nav-mobile .top-main-menu-mobile {
     position: absolute;
-    top: 55px;
+    top: 77px;
     margin: 0;
     right: 0;
     width: 200px;
@@ -3793,7 +3813,8 @@ Kopa article list 3 widget
 .kopa-area-5 .kopa-article-list-3-widget .widget-content ul li {
   width: 33.333333%; }
   .kopa-area-5 .kopa-article-list-3-widget .widget-content ul li .entry-item .entry-content {
-    color: #d7d7d8; }
+    color: #d7d7d8;
+     }
     .kopa-area-5 .kopa-article-list-3-widget .widget-content ul li .entry-item .entry-content .entry-title a {
       color: #ffffff; }
       .kopa-area-5 .kopa-article-list-3-widget .widget-content ul li .entry-item .entry-content .entry-title a:hover {
@@ -4304,8 +4325,13 @@ Kopa article list 4 widget
 Kopa masonry list 2 widget
 ----------------------------------
 */
+/*.kopa-area-31 {
+  background-color: rgb(233,233,233);
+}
+*/
 .kopa-masonry-list-2-widget .masonry-list-wrapper {
-  margin: -30px 0 0 -30px; }
+  margin: -30px 0 0 -30px;
+   }
   .kopa-masonry-list-2-widget .masonry-list-wrapper > ul {
     margin: 0;
     padding: 0; }
@@ -4317,7 +4343,16 @@ Kopa masonry list 2 widget
       width: 25%; }
       .kopa-masonry-list-2-widget .masonry-list-wrapper > ul > li .entry-item {
         position: relative;
-        background-color: #ffffff; }
+        background-color: rgba(250,250,250,0.6);
+        cursor: pointer; 
+        transition: all 0.3s ease;}
+      .kopa-masonry-list-2-widget .masonry-list-wrapper > ul > li .entry-item:hover {
+        background-color: rgba(255,255,255,1);
+        cursor: pointer; 
+        transform: scale(1.1,1.1);
+      }
+
+
         .kopa-masonry-list-2-widget .masonry-list-wrapper > ul > li .entry-item.hot-item .entry-thumb .entry-hot {
           display: block; }
         .kopa-masonry-list-2-widget .masonry-list-wrapper > ul > li .entry-item .entry-thumb {
@@ -4326,7 +4361,8 @@ Kopa masonry list 2 widget
           .kopa-masonry-list-2-widget .masonry-list-wrapper > ul > li .entry-item .entry-thumb .entry-hot {
             background-color: #ed145b;
             color: #ffffff;
-            text-transform: uppercase;
+            /*Added by Ramanan*/
+            /*text-transform: uppercase;*/
             padding: 14px 14px 12px;
             position: absolute;
             left: 10px;
@@ -4375,7 +4411,8 @@ Kopa masonry list 2 widget
           .kopa-masonry-list-2-widget .masonry-list-wrapper > ul > li .entry-item .entry-content .entry-title {
             margin-bottom: 0;
             margin-right: 25%;
-            text-transform: uppercase;
+            /*Added by Ramanan*/
+            /*text-transform: uppercase;*/
             font-weight: 400;
             font-size: 15px;
             line-height: 21px; }
@@ -6550,13 +6587,13 @@ Kopa professor list 2 widget
 .home-slider-1 {
   margin-top: -4px;
   min-height: 400px; }
-  .home-slider-1 .owl-carousel-1 .item .entry-item {
+  .home-slider-1 .uib-carousel-1 .item .entry-item {
     position: relative; }
-    .home-slider-1 .owl-carousel-1 .item .entry-item .entry-thumb {
+    .home-slider-1 .uib-carousel-1 .item .entry-item .entry-thumb {
       position: relative; }
-      .home-slider-1 .owl-carousel-1 .item .entry-item .entry-thumb img {
+      .home-slider-1 .uib-carousel-1 .item .entry-item .entry-thumb img {
         width: 100%; }
-    .home-slider-1 .owl-carousel-1 .item .entry-item .entry-content {
+    .home-slider-1 .uib-carousel-1 .item .entry-item .entry-content {
       position: absolute;
       left: 0;
       top: 0;
@@ -6565,26 +6602,27 @@ Kopa professor list 2 widget
       padding-top: 155px;
       z-index: 1;
      }
-      .home-slider-1 .owl-carousel-1 .item .entry-item .entry-content .container {
+      .home-slider-1 .uib-carousel-1 .item .entry-item .entry-content .container {
         width: 80.9%;
         padding: 0; }
-      .home-slider-1 .owl-carousel-1 .item .entry-item .entry-content h2 {
+      .home-slider-1 .uib-carousel-1 .item .entry-item .entry-content h2 {
         text-transform: uppercase;
         font-size: 76px;
         line-height: 82px;
         font-weight: 800;
         letter-spacing: 3px;
         margin-bottom: 0; }
-        .home-slider-1 .owl-carousel-1 .item .entry-item .entry-content h2 a {
+        .home-slider-1 .uib-carousel-1 .item .entry-item .entry-content h2 a {
           color: #ffffff; }
-      .home-slider-1 .owl-carousel-1 .item .entry-item .entry-content p {
+      .home-slider-1 .uib-carousel-1 .item .entry-item .entry-content p {
         font-size: 18px;
         line-height: 24px;
         color: #ffffff;
         margin: 5px 0 20px; }
-      .home-slider-1 .owl-carousel-1 .item .entry-item .entry-content .left-col {
-        border-right: 1px solid rgba(255, 255, 255, 0.4); }
-  .home-slider-1 .owl-carousel-1 .owl-controls .owl-pagination {
+      .home-slider-1 .uib-carousel-1 .item .entry-item .entry-content .left-col {
+        /*border-right: 1px solid rgba(255, 255, 255, 0.4);*/
+         }
+  .home-slider-1 .uib-carousel-1 .owl-controls .owl-pagination {
     position: absolute;
     left: 9.55%;
     bottom: 30px;
@@ -6778,7 +6816,7 @@ Kopa professor list 2 widget
     background-position: center;
     z-index: 0; }
     .page-header .page-header-bg.page-header-bg-1 {
-      background-image: url(images/building.jpg); }
+      background-image: url(/images/building.jpg); }
 
 .kopa-breadcrumb {
   background-color: #ececec;
@@ -8419,18 +8457,18 @@ Contact page
 #contact-form .contact-form .row > div .input-block {
   margin-bottom: 30px;
   position: relative; }
-  #contact-form .contact-form .row > div .input-block input[type="text"] {
+  #contact-form .contact-form .row > div .input-block input[type="text"],input[type="password"]  {
     width: 100%;
     border-radius: 5px;
     border: 1px solid #e2e2e3;
     height: 50px;
     padding: 10px 15px 10px 35px;
     line-height: 28px;
-    text-transform: uppercase;
+    /*text-transform: uppercase;*/
     font-weight: 300;
     font-family: "Raleway", sans-serif;
     color: #262c56; }
-    #contact-form .contact-form .row > div .input-block input[type="text"]:focus {
+    #contact-form .contact-form .row > div .input-block input[type="text"]:focus,input[type="password"]:focus {
       border-color: #03a9f5; }
 #contact-form .contact-form .row > div .textarea-block {
   margin-bottom: 30px;
@@ -9673,9 +9711,3 @@ Singe product page
       border-color: #4CAF50; }
 
 /*# sourceMappingURL=style.css.map */
-
-@media screen and (max-width: 800px) {
-    .mobile-hide {
-        display: none;
-    }
-}

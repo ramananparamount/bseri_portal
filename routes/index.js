@@ -50,7 +50,7 @@ router.use('/', function(req, res, next){
 router.get('/', function(req, res, next) {
     var contents = [];
     HomeSliderModel
-            .find({'status':'active'})
+            .find({'status':'active'}, {_id:0})
             .sort({seq:1})
             .exec(function(err, items){
         if(err) {
@@ -114,6 +114,17 @@ router.get('/', function(req, res, next) {
 //         ],
 //         testimonials: {} });
 // });
+
+
+router.post('/getuser/:username', function (req, res){
+    UserModel.findOne({email: req.body.username}, function(err, user) {
+        if(err) throw err;
+        if (user) {
+            console.log('That email address already exists.');
+            return res.json({ success: false, message: 'That email address already exists.'});
+        }   
+    });
+});
 
 router.post('/login', function (req, res){
   console.log("Test: " + req.body.username);
