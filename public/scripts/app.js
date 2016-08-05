@@ -1,43 +1,43 @@
-(function () {
+// (function () {
 
-    angular.module('ui.splash', ['ui.bootstrap', 'ngAnimate'])
-        .service('$splash', ['$uibModal','$rootScope', 
-          function($uibModal, $rootScope) {
-            return {
-                open: function (attrs, opts) {
-                    console.log("Within Splash");
-                    var scope = $rootScope.$new();
-                    angular.extend(scope, attrs);
-                    opts = angular.extend(opts || {}, {
-                        backdrop: false,
-                        scope: scope,
-                        templateUrl: 'splash/content.html',
-                        windowTemplateUrl: 'splash/index.html'
-                    });
-                    console.log("Within Splash2");
+//     angular.module('ui.splash', ['ui.bootstrap', 'ngAnimate'])
+//         .service('$splash', ['$uibModal','$rootScope', 
+//           function($uibModal, $rootScope) {
+//             return {
+//                 open: function (attrs, opts) {
+//                     console.log("Within Splash");
+//                     var scope = $rootScope.$new();
+//                     angular.extend(scope, attrs);
+//                     opts = angular.extend(opts || {}, {
+//                         backdrop: false,
+//                         scope: scope,
+//                         templateUrl: 'splash/content.html',
+//                         windowTemplateUrl: 'splash/index.html'
+//                     });
+//                     console.log("Within Splash2");
 
-                    return $uibModal.open(opts);
-                }
-            };
-        }
-    ])
-    .run([
-      '$templateCache',
-      function ($templateCache) {
-        $templateCache.put('splash/index.html',
-          '<section modal-render="{{$isRendered}}" class="splash" modal-in-class="splash-open" ng-style="{\'z-index\': 1000, display: \'block\'}" ng-click="close($event)">' +
-          '  <div class="splash-inner" ng-transclude></div>' +
-          '</section>'
-        );
-        $templateCache.put('splash/content.html',
-          '<div class="splash-content text-center">' +
-          '  <h1 ng-bind="title"></h1>' +
-          '  <p class="lead" ng-bind="message"></p>' +
-          '  <button class="btn btn-lg btn-outline" ng-bind="btnText || \'Ok, cool\'" ng-click="$close()"></button>' +
-          '</div>'
-        );
-      }
-    ]);
+//                     return $uibModal.open(opts);
+//                 }
+//             };
+//         }
+//     ])
+//     .run([
+//       '$templateCache',
+//       function ($templateCache) {
+//         $templateCache.put('splash/index.html',
+//           '<section modal-render="{{$isRendered}}" class="splash" modal-in-class="splash-open" ng-style="{\'z-index\': 1000, display: \'block\'}" ng-click="close($event)">' +
+//           '  <div class="splash-inner" ng-transclude></div>' +
+//           '</section>'
+//         );
+//         $templateCache.put('splash/content.html',
+//           '<div class="splash-content text-center">' +
+//           '  <h1 ng-bind="title"></h1>' +
+//           '  <p class="lead" ng-bind="message"></p>' +
+//           '  <button class="btn btn-lg btn-outline" ng-bind="btnText || \'Ok, cool\'" ng-click="$close()"></button>' +
+//           '</div>'
+//         );
+//       }
+//     ]);
 
 
     var myapp = angular.module('bseriApp', ['ui.splash', 'ngAnimate', 'ui.router', 'ui.bootstrap', 'ngStorage','angular.snackbar']);
@@ -610,14 +610,15 @@ myapp.controller('RegisterCtrl', function ($location, $uibModalInstance, Authent
             console.log("valid form");
             vm.error = false;
             vm.loading = true;
-            if (vm.password != vm.confirmpassword) {
-                console.log("Register password mismatch");
-                vm.error = false; //'Password & Confirm Password doesnot match';
-                vm.loading = false;
-                vm.userForm.$submitted = false;
-                snackbar.create('Password & Confirm Password doesnot match');
-                return;
-            }
+            // console.log(vm.password +","+vm.confirmpassword);
+            // if (vm.password != vm.confirmpassword) {
+            //     console.log("Register password mismatch");
+            //     vm.error = false; //'Password & Confirm Password doesnot match';
+            //     vm.loading = false;
+            //     vm.userForm.$submitted = false;
+            //     snackbar.create('Password & Confirm Password doesnot match');
+            //     return;
+            // }
 
             console.log(vm.email);
             console.log(vm.password);
