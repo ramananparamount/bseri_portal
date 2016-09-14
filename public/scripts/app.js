@@ -1,56 +1,56 @@
-// (function () {
+(function () {
 
-//     angular.module('ui.splash', ['ui.bootstrap', 'ngAnimate'])
-//         .service('$splash', ['$uibModal','$rootScope', 
-//           function($uibModal, $rootScope) {
-//             return {
-//                 open: function (attrs, opts) {
-//                     console.log("Within Splash");
-//                     var scope = $rootScope.$new();
-//                     angular.extend(scope, attrs);
-//                     opts = angular.extend(opts || {}, {
-//                         backdrop: false,
-//                         scope: scope,
-//                         templateUrl: 'splash/content.html',
-//                         windowTemplateUrl: 'splash/index.html'
-//                     });
-//                     console.log("Within Splash2");
+    // angular.module('ui.splash', ['ui.bootstrap', 'ngAnimate'])
+    //     .service('$splash', ['$uibModal','$rootScope', 
+    //       function($uibModal, $rootScope) {
+    //         return {
+    //             open: function (attrs, opts) {
+    //                 console.log("Within Splash");
+    //                 var scope = $rootScope.$new();
+    //                 angular.extend(scope, attrs);
+    //                 opts = angular.extend(opts || {}, {
+    //                     backdrop: false,
+    //                     scope: scope,
+    //                     templateUrl: 'splash/content.html',
+    //                     windowTemplateUrl: 'splash/index.html'
+    //                 });
+    //                 console.log("Within Splash2");
 
-//                     return $uibModal.open(opts);
-//                 }
-//             };
-//         }
-//     ])
-//     .run([
-//       '$templateCache',
-//       function ($templateCache) {
-//         $templateCache.put('splash/index.html',
-//           '<section modal-render="{{$isRendered}}" class="splash" modal-in-class="splash-open" ng-style="{\'z-index\': 1000, display: \'block\'}" ng-click="close($event)">' +
-//           '  <div class="splash-inner" ng-transclude></div>' +
-//           '</section>'
-//         );
-//         $templateCache.put('splash/content.html',
-//           '<div class="splash-content text-center">' +
-//           '  <h1 ng-bind="title"></h1>' +
-//           '  <p class="lead" ng-bind="message"></p>' +
-//           '  <button class="btn btn-lg btn-outline" ng-bind="btnText || \'Ok, cool\'" ng-click="$close()"></button>' +
-//           '</div>'
-//         );
-//       }
-//     ]);
+    //                 return $uibModal.open(opts);
+    //             }
+    //         };
+    //     }
+    // ])
+    // .run([
+    //   '$templateCache',
+    //   function ($templateCache) {
+    //     $templateCache.put('splash/index.html',
+    //       '<section modal-render="{{$isRendered}}" class="splash" modal-in-class="splash-open" ng-style="{\'z-index\': 1000, display: \'block\'}" ng-click="close($event)">' +
+    //       '  <div class="splash-inner" ng-transclude></div>' +
+    //       '</section>'
+    //     );
+    //     $templateCache.put('splash/content.html',
+    //       '<div class="splash-content text-center">' +
+    //       '  <h1 ng-bind="title"></h1>' +
+    //       '  <p class="lead" ng-bind="message"></p>' +
+    //       '  <button class="btn btn-lg btn-outline" ng-bind="btnText || \'Ok, cool\'" ng-click="$close()"></button>' +
+    //       '</div>'
+    //     );
+    //   }
+    // ]);
 
 
-    var myapp = angular.module('bseriApp', ['ui.splash', 'ngAnimate', 'ui.router', 'ui.bootstrap', 'ngStorage','angular.snackbar']);
+    var myapp = angular.module('bseriApp', ['ngAnimate', 'ui.router', 'ui.bootstrap', 'ngStorage', 'angular.snackbar', 'summernote']);
     myapp.service('sharedPropertiesService', function () {
         var IsLogged = false;
 
         return {
             getIsLogged: function () {
-                console.log("get IsLogged: " + IsLogged);
+                // console.log("get IsLogged: " + IsLogged);
                 return IsLogged;
             },
             setIsLogged: function(value) {
-                console.log("set IsLogged: value = " + value);   
+                // console.log("set IsLogged: value = " + value);   
                 IsLogged = value;
             }
         };
@@ -107,15 +107,15 @@
                     type: content.type,
                     seq: currIndex++
                 });
-                console.log(content);
+                // console.log(content);
             };
 
             $scope.IsAVideo = function(content) {
                 return (content.media == 'video');
             };
             $http.get('/api/home').success(function (response){
-                    console.log(response);
-                    var data = response;
+                    // console.log(response);
+                    // var data = response;
                     $scope.courses=response.courses;
                     // $scope.contents = response.contents;
                     // console.log($scope.contents);
@@ -160,25 +160,18 @@
         url: "/training/:coursekeyword/:eventid",
         templateUrl: "partials/singlecourses.html",
         controller: function($scope,$http,$stateParams,$state,$localStorage,$uibModal,$q,sharedPropertiesService){
-            console.log("Calling 1st");
             $http.get('/api/training/' + $stateParams.coursekeyword + "/" + $stateParams.eventid)
                 .then(function(res){
-                    console.log("return 1st");
-                    console.log(res);
                     $scope.course = res.data.course;
                     if(sharedPropertiesService.getIsLogged()){
-                        console.log("Logged in State");
                         return $http.get('/api/training/eventIsRegistered' + "/" + $stateParams.eventid);
                     }
                     else
                     {
-                        console.log("Logged out State");
                         return (res.data.isregistered = false);
                     }
                 })
                 .then(function (res1){
-                    console.log("return 2nd");
-                    console.log(res1);
                      if(res1 && res1.data.isregistered){
                         $scope.RegisterMsg = "Course Registered";
                         $scope.IsCourseRegistered = true;
@@ -197,33 +190,6 @@
                 .catch(function (err){
                     console.log(err);
                 });
-
-
-
-            // $scope.details = $http.get('/api/training/' + $stateParams.coursekeyword + "/" + $stateParams.eventid);
-            // $scope.registerinfo = $http.get('/api/training/eventIsRegistered' + "/" + $stateParams.eventid);
-
-            // $q.all([$scope.details, $scope.registerinfo])
-            //     .then(function(values){
-
-            //         console.log(values[0].data);
-            //         console.log(values[1].data);
-            //         $scope.course = values[0].data.course;
-            //          if(values[1].data.isregistered){
-            //             $scope.RegisterMsg = "Course Registered";
-            //             $scope.TakeCourseDisabled = true;
-            //             // $scope.anchorlinkRegister = "";
-            //         }
-            //         else
-            //         {
-            //             $scope.RegisterMsg = "Take Course";
-            //             $scope.TakeCourseDisabled = false;
-            //             // $scope.anchorlinkRegister = "javascript:void(0)";
-            //         }
-            //     })
-            //     .catch(function (err){
-            //         console.log(err);
-            //     });
 
             $scope.openLoginModal = function () {
                 var LoginmodalInstance = $uibModal.open({
@@ -263,6 +229,7 @@
                     console.log("Register dismiss:" + res);
                 });
             };
+
             $scope.RegisterEvent = function(course){
                 if($scope.TakeCourseDisabled){
                     console.log("Is Course disabled");
@@ -305,11 +272,8 @@
         url: "/training",
         templateUrl: "partials/training.html",
         controller: function($scope,$http,$state, $uibModal){
-            console.log("Main Training State");
             $http.get('/api/training').success(function (response){
-                console.log(response);
-                var data = response;
-                $scope.courses=data.courses;
+                $scope.courses=response.courses;
             }).error(function(err,status){
                 console.log(err);
             });
@@ -329,9 +293,9 @@
         url: "/training/me",
         templateUrl: "partials/training.html",
         controller: function($scope, $http, $state, $uibModal){
-            console.log("get My Events in the training html");
+            // console.log("get My Events in the training html");
             $http.get('/api/training/myevents').success(function (response){
-                console.log("response :"+ response);
+                // console.log("response :"+ response);
                 $scope.courses = response.courses;
             }).error(function(err,status){
                 console.log(err);
@@ -352,7 +316,7 @@
     .state('junction', {
         url: "/junction",
         templateUrl: "partials/junction.html",
-        controller: function($scope, $http, $state, $timeout, $stateParams, $splash , $uibModal){
+        controller: function($scope, $http, $state, $timeout, $stateParams , $uibModal){
 
             $scope.isCollapsed = true;
 
@@ -373,21 +337,21 @@
             };
 
             $http.get('/api/junction').success(function (response){
-                console.log(response);
+                // console.log(response);
                 $scope.categories = response.categories;
             }).error(function(err,status){
                 console.log(err);
             });
 
             $scope.getCategoryBlurb = function(catID,tabIdx){
-                console.log("catID:"+catID);
+                // console.log("catID:"+catID);
                 if($scope.categories[tabIdx].isLoaded){
                     // console.log("Already Loaded:"+tabIdx);
                     return;
                 }
                 /* or make request for data delayed to show Loading... */
                 $timeout(function(){
-                    console.log("Getting from service catID:"+catID + ' for tabIdx = ' + tabIdx);
+                    // console.log("Getting from service catID:"+catID + ' for tabIdx = ' + tabIdx);
                     $http.get('/api/junction/' + catID).success(function(response){
                         // console.log(response.items);
                         $scope.categories[tabIdx].blurbs = response.blurbs;
@@ -412,6 +376,37 @@
         url: "/blogitem",
         templateUrl: "partials/blog-item.html"
     })
+    .state('blogpost', {
+        url: "/blogpost",
+        templateUrl: "partials/blogpost.html",
+        controller: function ($scope, $http, $filter, $uibModal) { 
+            console.log("Inside Blog entry");
+
+            $scope.options = {
+                height: 200
+            };
+
+            $scope.init = function() { 
+                console.log('Summernote is launched. Save the Draft'); 
+            };
+            $scope.change = function(contents) {
+                console.log('contents are changed:', contents, $scope.editable);
+            };
+
+            $scope.imageUpload = function(files) {
+                console.log('image upload:', files);
+                console.log('image upload\'s editor:', $scope.editor);
+                console.log('image upload\'s editable:', $scope.editable);
+            };
+            $scope.save = function () {
+                console.log('Save as Draft'); 
+            };
+            $scope.publish = function () {
+                console.log('Publish to the world'); 
+            };
+
+        }        
+    })
     .state('blog', {
         url: "/blog",
         // templateUrl: "partials/home.html"
@@ -425,7 +420,8 @@
     // $locationProvider.html5Mode(true);
 })
 
-.run(['$http','$rootScope','$window','$localStorage', function($http, $rootScope,$window,$localStorage) {
+.run(['$http','$rootScope','$window','$localStorage','$timeout', function($http, $rootScope,$window,$localStorage,$timeout) {
+    $rootScope.ispageLoaded = false;
     if($localStorage.currentUser != undefined && $localStorage.currentUser != null) {
         console.log("Authorization:" + $localStorage.currentUser.token);
         // add JWT token as default auth header
@@ -433,11 +429,63 @@
         $http.defaults.headers.common.Authorization = $localStorage.currentUser.token;
         console.log("Authorization:" + $http.defaults.headers.common.Authorization);
     }
+
+    $rootScope.$on('$stateChangeStart',function(){
+        $rootScope.ispageLoaded = false;
+    })
+
     $rootScope.$on('$stateChangeSuccess',function(){
         $window.scrollTo(0,0);
     })
+    $rootScope.$on('$viewContentLoaded',function(){
+        // console.log("content Loaded : " + new Date());
+        $timeout(
+            function () {
+                $rootScope.ispageLoaded = true;
+                // console.log("PageLoading : " + new Date());
+            },3000
+        );
+        
+    })
 
 }])
+
+
+//***********************************************************************************//
+//                              Blog Entry controller                                //
+//***********************************************************************************//
+// Please note that $uibModalInstance represents a modal window (instance) dependency.
+// It is not the same as the $uibModal service used above.
+myapp.controller('blogentryCtrl', function ($scope) {
+    console.log("Inside Blog entry");
+
+    $scope.options = {
+        height: 350
+    };
+
+    $scope.init = function() { 
+        console.log('Summernote is launched. Save the Draft'); 
+    };
+    $scope.change = function(contents) {
+        console.log('contents are changed:', contents, $scope.editable);
+    };
+
+    $scope.imageUpload = function(files, editor) {
+        var url = "http://faganasset.com/wp-content/uploads/2015/04/stock-market-3.jpg";
+        console.log('image upload:', files);
+        console.log('image upload\'s editor:', $scope.editor);
+        console.log('image upload\'s editable:', $scope.editable);
+        $scope.editor.summernote('insertImage', url);
+    };
+    $scope.save = function () {
+        console.log('Save as Draft : ' + $scope.text ); 
+    };
+    $scope.publish = function () {
+        $scope.save();
+        console.log('Publish to the world'); 
+    };
+
+});
 
 
 
@@ -500,7 +548,6 @@ myapp.controller('LoginCtrl', function ($location, $uibModalInstance, Authentica
     };
 
     vm.openSignup = function () {
-        console.log("test");
         $uibModalInstance.close({openSignup:true});
     };
 });
@@ -509,9 +556,10 @@ myapp.controller('LoginCtrl', function ($location, $uibModalInstance, Authentica
 //***********************************************************************************//
 //                              Header Navig controller                              //
 //***********************************************************************************//
-myapp.controller('headerCtrl', function ($scope, $uibModal, $state, AuthenticationService, $localStorage, sharedPropertiesService, snackbar) {
+myapp.controller('headerCtrl', function ($scope, $uibModal, $state, AuthenticationService, 
+                                    $localStorage, sharedPropertiesService, snackbar, $timeout) {
     $scope.Islogged = false;
-
+    
     //Initialize the Logged State
     var init = function(){
         if($localStorage.currentUser != undefined && $localStorage.currentUser != null) {
@@ -520,6 +568,22 @@ myapp.controller('headerCtrl', function ($scope, $uibModal, $state, Authenticati
         }
     }
     init();
+
+    var getLoggedStatus = function(){
+        return sharedPropertiesService.getIsLogged();
+    }   
+
+    $scope.$watch(
+        getLoggedStatus,
+        function (newVal, oldVal){
+            if(newVal != oldVal){
+                $timeout(function (){
+                    $scope.Islogged = newVal;
+                },0);
+            }
+        }
+    );
+
 
     $scope.openLoginModal = function () {
         var LoginmodalInstance = $uibModal.open({
@@ -556,6 +620,9 @@ myapp.controller('headerCtrl', function ($scope, $uibModal, $state, Authenticati
                 $scope.IsRegistered = true;
                 console.log("Register close:" + res);
             }
+            else if(res.openSignin){
+                $scope.openLoginModal();
+            }
         }, function (res) {
             console.log("Register dismiss:" + res);
         });
@@ -584,6 +651,15 @@ myapp.controller('headerCtrl', function ($scope, $uibModal, $state, Authenticati
         console.log("Get My Events:");
         $state.go('mytraining');
     }
+
+    $scope.openBlogEntryModal = function() {
+        var BlogEntrymodalInstance = $uibModal.open({
+            animation: true,
+            size:'lg',
+            templateUrl: 'blogentry.html',
+            controller: 'blogentryCtrl'
+        });
+    };
 
 });
 
@@ -648,6 +724,13 @@ myapp.controller('RegisterCtrl', function ($location, $uibModalInstance, Authent
             return;
         }
     };
+
+    vm.openSignin = function () {
+        console.log("test");
+        $uibModalInstance.close({openSignin:true});
+    };
+
+
 });
 
 })();

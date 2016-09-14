@@ -1,0 +1,35 @@
+<div class="modal fade" id="blogentryModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+	<script type="text/ng-template" id="blogentry.html">
+	      <div class="modal-content">
+	        <div class="modal-header">
+	          <button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	          <h4 class="modal-title" id="myModalLabel">New Blog Post</h4>
+	        </div>
+	        <div class="modal-body">
+	          <div class="row">
+	            <div class="col-md-10 col-md-offset-1">
+					<form name="blogEntry" class="contact-form clearfix" ng-submit="save()">
+	                    <div class="input-block">
+	                        <label class="required" for="title"></label>
+	                        <input type="text" class="valid" name="title" id="user_name" value="" placeholder="Title*" ng-model="title" ng-model-options="{ updateOn: 'blur' }" required>
+	                    </div>
+	                    <br>
+						<summernote on-init="init()"
+						          on-change="change(contents)"
+						          on-image-upload="imageUpload(files)"
+						          editable="editable" editor="editor"></summernote>
+
+						<p>
+	                        <input type="submit" class="btn btn-primary" value="Save">
+	                        <br>
+	                        <input type="button" class="btn btn-primary" value="Publish" ng-click="publish()">
+						</p>
+					</form>
+	            </div>
+	          </div>
+	        </div>
+	      </div>
+	  </script>
+  </div>
+</div>	

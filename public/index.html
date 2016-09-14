@@ -20,6 +20,7 @@
       <link rel="stylesheet" href="css/style.css">
       <link rel="stylesheet" href="css/splash.css">
       <link rel="stylesheet" href="css/responsive.css"/>
+      <link rel="stylesheet" href="css/summernote.css"/>
       <link rel="stylesheet" href="css/angular.snackbar.css"/>
       <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,300italic,400italic,600,600italic,700italic,700' rel='stylesheet' type='text/css'>
       <link href='http://fonts.googleapis.com/css?family=Raleway:400,300,500,600,700,800' rel='stylesheet' type='text/css'>
@@ -37,6 +38,8 @@
 
       <script src="js/custom.js" charset="utf-8"></script>
       <script src="js/superfish.js"></script>
+      <script src="js/summernote.min.js"></script>
+      <script src="js/angular-summernote.min.js"></script>
 
       <script src="scripts/app.js"></script>
       <script src="scripts/services/authentication.service.js"></script>
@@ -51,24 +54,28 @@
 
   </head>
 
-  <body class="kopa-home-1" ng-app="bseriApp">
+  <body class="kopa-home-1" ng-app="bseriApp" ng-cloak>
 
     <ng-include src="'/partials/header.html'"></ng-include>
     <ng-include src="'/partials/register.html'"></ng-include>
     <ng-include src="'/partials/signin.html'"></ng-include>
+    <!-- <ng-include src="'/partials/blogentry.html'"></ng-include> -->
 
  
-    <div id="page">
+    <div id="page" ng-cloak>
       <div class="clearfix">
           <div ui-view></div>
       </div>
+      <div class="loading" ng-show="!ispageLoaded" ng-cloak>
+        <i class="fa fa-refresh fa-spin"></i>
+      </div>      
     </div>
 
     <div class="snackbar-container" data-snackbar="true" data-snackbar-remove-delay="0"></div>
 
-
-  <ng-include src="'/partials/footer.html'"></ng-include>
-
+    <div ng-if="ispageLoaded" ng-cloak>
+        <ng-include src="'/partials/footer.html'"></ng-include>
+    </div>
   </body>
 
 </html>

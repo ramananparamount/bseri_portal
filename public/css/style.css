@@ -1,9 +1,11 @@
-/*[ui-view].ng-enter, [ui-view].ng-leave {
-  position: absolute;
-  left: 0;
-  right: 0;
-  -webkit-transition:all .5s ease-in-out;
-  transition:all .5s ease-in-out;
+[ui-view].ng-enter, [ui-view].ng-leave {
+    position: absolute;
+    left: 0;
+    right: 0;
+    -webkit-transition:all .5s ease-in-out;
+    -moz-transition:all .5s ease-in-out;
+    -o-transition:all .5s ease-in-out;  
+    transition:all .5s ease-in-out;
 }
 
 [ui-view].ng-enter {
@@ -13,7 +15,17 @@
 [ui-view].ng-enter-active {
   opacity: 1;
 }
-*/
+
+.animate-enter {
+    -webkit-transition: 5s linear all; /* Chrome */
+    transition: 5s linear all;
+    opacity: 0;
+}
+ 
+.animate-enter.animate-enter-active {
+    opacity: 1;
+}
+
 
 .help-block {
     background-color: pink;

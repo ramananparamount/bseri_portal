@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <meta charset="utf-8">
+      <title>BSERI</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="description" content="">
+      <meta name="author" content="">
+    <!-- Added for angular Pretty url to remove # tag from the location url  -->
+      <base href="/">
+
+      <link rel="stylesheet" href="css/bootstrap.css" media="all" />
+      <!-- <link rel="stylesheet" href="css/cust-bootstrap-modal-carousel.css" media="all" /> -->
+      <link rel="stylesheet" href="css/font-awesome.min.css" media="all" />
+      <!-- <link rel="stylesheet" href="css/superfish.css" media="all" /> -->
+      <!-- <link rel="stylesheet" href="css/jquery.navgoco.css"/> -->
+      <!-- <link rel="stylesheet" href="css/style.css"> -->
+      <!-- <link rel="stylesheet" href="css/splash.css"> -->
+      <link rel="stylesheet" href="css/responsive.css"/>
+      <link rel="stylesheet" href="css/summernote.css"/>
+      <link rel="stylesheet" href="css/angular.snackbar.css"/>
+      <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,300italic,400italic,600,600italic,700italic,700' rel='stylesheet' type='text/css'>
+      <link href='http://fonts.googleapis.com/css?family=Raleway:400,300,500,600,700,800' rel='stylesheet' type='text/css'>
+
+      <script src="js/jquery-1.11.1.min.js"></script>
+      <script src="js/bootstrap.min.js"></script>
+      <script src="js/angular.js"></script>
+      <script src="js/angular-animate.js"></script>
+      <script src="js/angular-ui-router.js"></script>
+      <script src="js/angular.snackbar.min.js"></script>
+      <script src="js/ngStorage.min.js"></script>
+      <script src="js/ui-bootstrap-tpls.min.js"></script>
+
+      <script src="js/modernizr.custom.js"></script>
+
+      <script src="js/custom.js" charset="utf-8"></script>
+      <script src="js/superfish.js"></script>
+      <script src="js/summernote.js"></script>
+      <script src="js/angular-summernote.min.js"></script>
+
+      <script src="scripts/app.js"></script>
+      <script src="scripts/services/authentication.service.js"></script>
+
+
+      <!-- Le fav and touch icons -->
+      <link rel="shortcut icon" href="img/favicon.ico">
+      <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+      <link rel="apple-touch-icon" sizes="72x72" href="img/apple-touch-icon-72x72.png">
+      <link rel="apple-touch-icon" sizes="114x114" href="img/apple-touch-icon-114x114.png">
+
+
+  </head>
+
+  <body class="kopa-home-1" ng-app="bseriApp" ng-controller="blogentryCtrl">
+<div id="kopa-page-header" ng-controller="headerCtrl">
+  <div id="kopa-header-top">
+      <div class="container">
+          <div class="row">
+              <div class="col-md-3 col-sm-3 col-xs-12">
+                  <div id="logo-image" class="pull-left">
+                      <a href="/">
+                          <img ng-src="/img/logo.png" alt="BSERI" width="100px">
+                      </a>
+                  </div>
+              </div>
+
+          </div>
+          <!-- row -->
+
+      </div>
+      <!-- container -->
+
+  </div>
+  <!-- kopa-header-top -->
+</div>
+    <div>
+        <section class="kopa-area kopa-area-31">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                    	<div class="row">
+                    		<div class="col-md-11 col-sm-11 col-xs-12">
+                    			<div class="entry-box">
+                    				<div id='about_us' class="entry-content">
+                    					<h3>New Blog Post</h3>
+			            						<form name="blogEntry" class="contact-form clearfix" ng-submit="save()" style="border:1px solid #e7e7e7; border-radius:3px; padding:1.1em">
+						                    <div class="input-block">
+						                        <label class="required" for="title"></label>
+						                        <input type="text" name="title" id="title" value="" placeholder="Title*" ng-model="title" ng-model-options="{ updateOn: 'blur' }"  required style="border-radius:3px;padding:4px; font-size:1.4em; width:100%">
+						                    </div>
+						                    <br>
+										            <summernote ng-model="text" config="options" on-init="init()"
+  											          on-change="change(contents)"
+  											          on-image-upload="imageUpload(files)"
+                                  on-enter="save()"
+                                  editable="editable" editor="editor" style="padding:5%"></summernote>
+
+            											<p>
+  						                        <input type="submit" class="btn btn-primary" value="Save">
+  						                        <input type="button" class="btn btn-primary" value="Publish" ng-click="publish()">
+            											</p>
+            										</form>
+	                    			</div>
+		                    	</div>
+		                    	<!-- entry-box -->
+                    		</div>
+                    		<!-- col-md-8 -->
+                    	</div>
+                    	<!-- row -->
+                    </div>
+                    <!-- col-md-9 -->
+                </div>
+                <!-- row -->
+            </div>
+            <!-- container -->
+        </section>
+        <!-- kopa-area -->
+    </div>
+    <!-- main-content -->
+  </body>
+
+</html>

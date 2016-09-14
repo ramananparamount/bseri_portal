@@ -1,0 +1,43 @@
+    <div>
+        <section class="kopa-area kopa-area-31">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                    	<div class="row">
+                    		<div class="col-md-11 col-sm-11 col-xs-12">
+                    			<div class="entry-box">
+                    				<div id='about_us' class="entry-content">
+                    					<h3>New Blog Post</h3>
+			            						<form name="blogEntry" class="contact-form" ng-submit="save()" style="border:1px solid #e7e7e7; border-radius:3px; padding:1.1em">
+						                    <div class="input-block">
+						                        <label class="required" for="title"></label>
+						                        <input type="text" name="title" id="title" value="" placeholder="Title*" ng-model="title" ng-model-options="{ updateOn: 'blur' }" required style="border-radius:3px;padding:4px; font-size:1.4em; width:100%">
+						                    </div>
+						                    <br>
+										            <summernote ng-model="text" config="options" on-init="init()"
+  											          on-change="change(contents)"
+  											          on-image-upload="imageUpload(files)"
+                                  editable="editable" editor="editor" style="padding:5%"></summernote>
+
+            											<p>
+  						                        <input type="submit" class="btn btn-primary" value="Save">
+  						                        <input type="button" class="btn btn-primary" value="Publish" ng-click="publish()">
+            											</p>
+            										</form>
+	                    			</div>
+		                    	</div>
+		                    	<!-- entry-box -->
+                    		</div>
+                    		<!-- col-md-8 -->
+                    	</div>
+                    	<!-- row -->
+                    </div>
+                    <!-- col-md-9 -->
+                </div>
+                <!-- row -->
+            </div>
+            <!-- container -->
+        </section>
+        <!-- kopa-area -->
+    </div>
+    <!-- main-content -->

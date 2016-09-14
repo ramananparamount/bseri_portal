@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="summernoteDemo">
+<head>
+  <title>BSERI</title>
+
+  <!--summernote dependencies-->
+  <script src="js/jquery-1.11.1.min.js"></script>
+  <link rel="stylesheet" href="css/bootstrap.css">
+  <script src="js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="css/font-awesome.min.css">
+
+  <!--summernote-->
+  <link rel="stylesheet" href="css/summernote.css" />
+  <script src="js/summernote.min.js"></script>
+
+  <!--angular-summernote dependencies -->
+  <script src="js/angular.js"></script>
+  <script src="js/angular-summernote.min.js"></script>
+
+  <style>
+    body {
+      margin: 10px 20px;
+    }
+
+    h2, h4, h5, h6 {
+      background-color: #eee;
+      padding: 10px;
+    }
+
+    h4 {
+      margin-left: 20px;
+    }
+
+    .example {
+      margin-left: 40px;
+    }
+  </style>
+</head>
+<body>
+  <div ng-controller="CallbacksCtrl">
+    <h4>New Blog Post</h4>
+    <div class="example">
+		<form name="blogEntry" class="contact-form clearfix" ng-submit="save()">
+		    <div class="input-block">
+		        <label class="required" for="title"></label>
+		        <input type="text" class="valid" name="title" id="user_name" value="" placeholder="Title*" ng-model="title" ng-model-options="{ updateOn: 'blur' }" required>
+		    </div>
+
+	        <summernote ng-model="blogtext" config="options" on-init="init()" on-enter="enter()" on-focus="focus(evt)"
+	                on-blur="blur(evt)" on-paste="paste(evt)" on-keyup="keyup(evt)" on-keydown="keydown(evt)"
+	                on-change="change(contents)"
+	                on-image-upload="imageUpload(files)"
+	                editable="editable" editor="editor"></summernote>
+			<p>
+				<input type="submit" class="btn btn-primary" value="Save">
+				<br>
+				<input type="button" class="btn btn-primary" value="Publish" ng-click="publish()">
+			</p>
+		</form>
+
+    </div>
+  </div>
+
+  <script>
+    angular.module('summernoteDemo', ['summernote'])
+        .controller('CallbacksCtrl', function($scope) {
+          $scope.options = {
+            height: 300 
+          };          
+          $scope.init = function() { console.log('Summernote is launched'); };
+          $scope.enter = function() { console.log('Enter/Return key pressed'); };
+          $scope.focus = function(e) { console.log('Editable area is focused'); };
+          $scope.blur = function(e) { console.log('Editable area loses focus'); };
+          $scope.paste = function(e) {
+            console.log('Called event paste: ' +  e.originalEvent.clipboardData.getData('text'));
+          };
+          $scope.change = function(contents) {
+            console.log('contents are changed:', contents, $scope.editable);
+          };
+          $scope.keyup = function(e) { console.log('Key is released:', e.keyCode); };
+          $scope.keydown = function(e) { console.log('Key is pressed:', e.keyCode); };
+          $scope.imageUpload = function(files) {
+            console.log('image upload:', files);
+            console.log('image upload\'s editor:', $scope.editor);
+            console.log('image upload\'s editable:', $scope.editable);
+          };
+        });
+  </script>
+</body>
+</html>

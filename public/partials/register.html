@@ -8,7 +8,7 @@
                 </div>
 
                 <div ng-if="vm.error" class="help-block" id="response">{{vm.error}}</div>
-                <form name="vm.userForm" class="contact-form clearfix" ng-submit="vm.register()" novalidate="">
+                <form name="vm.userForm" class="contact-form clearfix" ng-submit="!vm.userForm.$invalid && !vm.userForm.$pristine && vm.register()" novalidate="">
                     <div class="row">
                         <div class="col-md-8 col-md-offset-2">
                             <button class="btn btn-block btn-lg btn-info"><span class="fa fa-facebook"></span> &nbsp;Sign up with Facebook</button>
@@ -17,7 +17,7 @@
                             <!-- col-md-4 -->
                             <div class="input-block" ng-class="{ 'has-error' : vm.userForm.email.$invalid && !vm.userForm.email.$pristine }" >
                                 <label class="required" for="contact_email"><i class="fa fa-envelope"></i></label>
-                                <input type="email" class="valid" name="email" id="contact_email" value="" placeholder="Email*"  ng-model="vm.email" ng-model-options="{ updateOn: 'blur' }">
+                                <input type="email" class="valid" name="email" id="contact_email" value="" placeholder="Email*"  ng-model="vm.email" ng-model-options="{ updateOn: 'blur' }" required>
 
                                 <div ng-show="vm.userForm.email.$invalid && !vm.userForm.email.$pristine">
                                     <span class="help-block">Enter a valid email.</span>
@@ -26,7 +26,7 @@
 
                             <p class="input-block" ng-class="{ 'has-error' : vm.userForm.password.$invalid && !vm.userForm.password.$pristine }">
                                 <label class="required" for="contact_password"><i class="fa fa-key"></i></label>
-                                <input type="password" class="valid" name="password" id="contact_password" value="" placeholder="Password*"  ng-model="vm.password" ng-minlength="8" ng-maxlength="16" ng-model-options="{ debounce: 500}">
+                                <input type="password" class="valid" name="password" id="contact_password" value="" placeholder="Password*"  ng-model="vm.password" ng-minlength="8" ng-maxlength="16" ng-model-options="{ debounce: 500}" required>
 <!--                                 <div ng-show="userForm.password.$invalid && !userForm.password.$pristine">
                                     <span class="help-block">Enter a valid password.</span>
                                 </div> -->
@@ -40,7 +40,7 @@
 
                             <p class="input-block" ng-class="{ 'has-error' : vm.userForm.confirmpassword.$invalid && !vm.userForm.confirmpassword.$pristine }">
                                 <label class="required" for="contact_password"><i class="fa fa-key"></i></label>
-                                <input type="password" class="valid" name="confirmpassword" id="contact_confirmpassword" value="" placeholder="Confirm Password*"  ng-model="vm.confirmpassword" ng-minlength="8" ng-maxlength="16" ng-model-options="{updateOn: 'blur'}" valid-password-c="vm.password">
+                                <input type="password" class="valid" name="confirmpassword" id="contact_confirmpassword" value="" placeholder="Confirm Password*"  ng-model="vm.confirmpassword" ng-minlength="8" ng-maxlength="16" ng-model-options="{updateOn: 'blur'}" valid-password-c="vm.password" required>
 <!--                                 <div ng-show="userForm.confirmpassword.$invalid && !userForm.password.$pristine">
                                     <span class="help-block">Enter a valid password.</span>
                                 </div> -->
@@ -57,7 +57,7 @@
 
                             <p class="input-block" ng-class="{ 'has-error' : vm.userForm.username.$invalid && !vm.userForm.username.$pristine }">
                                 <label class="required" for="contact_name"><i class="fa fa-user"></i></label>
-                                <input type="text" class="valid" name="username" id="contact_name" value="" placeholder="Name*"  ng-model="vm.username" ng-minlength="3" ng-maxlength="30" ng-model-options="{ debounce: 500, updateOn: 'blur' }">
+                                <input type="text" class="valid" name="username" id="contact_name" value="" placeholder="Name*"  ng-model="vm.username" ng-minlength="3" ng-maxlength="30" ng-model-options="{ debounce: 500, updateOn: 'blur' }" required>
                                 <div ng-show="vm.userForm.username.$error.minlength">
                                     <span class="help-block">Username must be between 3 and 30 characters</span>
                                 </div>
@@ -80,8 +80,8 @@
                             </p>
                             <br>
                             <p class="contact-button clearfix">
-                                <button type="submit" ng-disabled="vm.userForm.$pristine || vm.userForm.$invalid || vm.userForm.$submitted" class="input-submit" id="submit-contact" value="Register">Register</button>
-                                <!-- <input type="submit" ng-disabled="userForm.$invalid" class="input-submit" id="submit-contact" value="Register"> -->
+                                <!-- <button type="submit" ng-disabled="!vm.userForm.$invalid" class="input-submit" id="submit-contact" value="Register">Register</button> -->
+                                <input type="submit" ng-disabled="vm.userForm.$invalid || vm.userForm.$pristine" class="input-submit" id="submit-contact" value="Register">
                             </p>
                             <br>
 
@@ -92,7 +92,7 @@
                 </form>
             </div>
             <div class="modal-footer" style="text-align:center !important">
-                <button class=" btn btn-primary pointer" data-dismiss="modal" data-name="register-modal" data-toggle="modal" data-target="#signinModal">Sign in</button>
+                <a href="javascript:void(0)" class="btn btn-primary" ng-click="vm.openSignin()">Sign in</a>
                 <span> &nbsp; &nbsp;Already have an account?</span>
             </div>
             <br>
